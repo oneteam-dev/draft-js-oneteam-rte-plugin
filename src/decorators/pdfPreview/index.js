@@ -1,4 +1,4 @@
-import createPDFPreviewStrategy from './pdfPreviewStrategy';
+import createPDFPreviewStrategy from './createPDFPreviewStrategy';
 import PDFPreview from '../../components/PDFPreview';
 
 const createPDFPreviewDecorator = (config, store) => ({

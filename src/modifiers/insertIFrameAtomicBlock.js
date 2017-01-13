@@ -16,7 +16,7 @@ const insertIFrameAtomicBlock = (editorState: EditorState, html: string): Editor
     editorState,
     IFRAME,
     'IMMUTABLE',
-    { attributes }
+    { ...attributes }
   );
 };
 

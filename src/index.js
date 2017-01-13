@@ -2,12 +2,12 @@
 
 import merge from 'lodash/merge';
 
-// ********************************************************************
-//
-// This is temporary. we should re-implementation
-import convertHTML from 'oneteam-rte-converter/lib/convertFromHTML';
-import convertState from 'oneteam-rte-converter/lib/editorStateToHTML';
-// ********************************************************************
+// // ********************************************************************
+// //
+// // This is temporary. we should re-implementation
+// import convertHTML from 'oneteam-rte-converter/lib/convertFromHTML';
+// import convertState from 'oneteam-rte-converter/lib/editorStateToHTML';
+// // ********************************************************************
 
 import handleKeyCommand from './handleKeyCommand';
 import handleReturn from './handleReturn';
@@ -20,6 +20,8 @@ import blockStyleFn from './blockStyleFn';
 import createLinkDecorator from './decorators/Link';
 import createDownloadLinkDecorator from './decorators/DownloadLink';
 import createBoundModifiers from './helpers/createBoundModifiers';
+import convertHTML from './encoding/convertHTMLToContentState';
+import convertState from './encoding/convertContentStateToHTML';
 import { OLD_INLINE_STYLES } from './constants';
 
 import type { Config } from './types/Config';
@@ -35,15 +37,13 @@ const createOneteamRTEPlugin = (options: Config): Object => {
   const config = merge({}, defaultConfig, options);
 
   return {
-    convertHTML,
-    convertState,
     // blockRenderMap: Map({
     //   'pdf-preview': {
     //     element: 'pdf-preview'
     //   }
     // }),
-    // convertHTML,
-    // convertState,
+    convertHTML,
+    convertState,
     store,
     initialize(pluginFunctions) {
       Object.keys(pluginFunctions).forEach((k) => {

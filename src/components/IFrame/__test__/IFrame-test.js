@@ -11,11 +11,10 @@ chai.use(chaiEnzyme());
 describe('<IFrame />', () => {
   it('renders', () => {
     const entityKey = Entity.create('IFRAME', 'IMMUTABLE', {
-      attributes: {
-        src: 'https://one-team.com',
-        width: 400,
-        height: 280
-      }
+      src: 'https://one-team.com',
+      width: 400,
+      height: 280,
+      allowFullScreen: true
     });
     const block = {
       getEntityAt() {
@@ -25,7 +24,7 @@ describe('<IFrame />', () => {
     expect(
       shallow(<IFrame block={block} />).html()
     ).to.equal(
-      '<iframe src="https://one-team.com" width="400" height="280" class=""></iframe>'
+      '<iframe src="https://one-team.com" width="400" height="280" allowfullscreen="" class=""></iframe>'
     );
   });
 });

@@ -41,6 +41,10 @@ export const IFRAME = 'IFRAME';
 export const PLACEHOLDER = 'PLACEHOLDER'; // unused
 export const FILE_PLACEHOLDER = 'FILE_PLACEHOLDER';
 
+export const ENTITY_TYPES = {
+  WEB_CARD, IMAGE, LINK, DOWNLOAD_LINK, IFRAME, PLACEHOLDER, FILE_PLACEHOLDER
+};
+
 export const BLOCK_TYPES = {
   UNSTYLED,
   H1,

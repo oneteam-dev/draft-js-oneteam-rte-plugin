@@ -2,7 +2,7 @@ import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import Draft from 'draft-js';
-import createPDFPreviewStrategy from '../pdfPreviewStrategy';
+import createPDFPreviewStrategy from '../createPDFPreviewStrategy';
 
 chai.use(sinonChai);
 

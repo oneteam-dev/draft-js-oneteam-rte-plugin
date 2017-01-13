@@ -24,7 +24,7 @@ const IFrame = (props) => {
   } = otherProps;
 
   const combinedClassName = unionClassNames(theme.image, className);
-  const { attributes } = Entity.get(block.getEntityAt(0)).getData();
+  const attributes = Entity.get(block.getEntityAt(0)).getData();
 
   return (
     <iframe

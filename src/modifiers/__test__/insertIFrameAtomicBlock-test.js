@@ -22,11 +22,9 @@ describe('insertIFrameAtomicBlock', () => {
     entityMap: {
       0: {
         data: {
-          attributes: {
-            src: 'https://one-team.com',
-            frameborder: '0',
-            allowfullscreen: ''
-          }
+          src: 'https://one-team.com',
+          frameBorder: '0',
+          allowFullScreen: true
         },
         mutability: 'IMMUTABLE',
         type: 'IFRAME'
@@ -80,7 +78,7 @@ describe('insertIFrameAtomicBlock', () => {
   it('insert', () => {
     const newEditorState = insertIFrameAtomicBlock(
       editorState,
-      '<iframe src="https://one-team.com" frameBorder="0" allowFullScreen></iframe>'
+      '<iframe src="https://one-team.com" frameborder="0" allowfullscreen></iframe>'
     );
     expect(newEditorState).not.to.equal(editorState);
     const d = Draft.convertToRaw(newEditorState.getCurrentContent());
