@@ -5,7 +5,7 @@ const Link = ({ children }) => (
 );
 
 Link.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node.isRequired
 };
 
 export default Link;

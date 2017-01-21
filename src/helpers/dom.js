@@ -90,7 +90,7 @@ export const stringifyAttributes = (attrs: ?Object, ignoreEncodeKeys: Array<stri
 
   return Object.keys(attrs)
     .map((k) => {
-      const attrValue = attrs[k];
+      const attrValue = attrs ? attrs[k] : '';
       const key = includes(attrNameMap, k) ? findKey(attrNameMap, (v) => v === k) : kebabCase(k);
       if (attrValue === true) {
         return ` ${key}`;

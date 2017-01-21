@@ -5,7 +5,7 @@ const DownloadLink = ({ children }) => (
 );
 
 DownloadLink.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node.isRequired
 };
 
 export default DownloadLink;
