@@ -1,4 +1,4 @@
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item/lib/constants';
+import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 
 // Block types
 export const UNSTYLED = 'unstyled';
@@ -56,7 +56,8 @@ export const BLOCK_TYPES = {
   ORDERED_LIST_ITEM,
   UNORDERED_LIST_ITEM,
   ATOMIC,
-  CODE_BLOCK
+  CODE_BLOCK,
+  CHECKABLE_LIST_ITEM
 };
 
 export const HEADER_BLOCK_TYPES = [

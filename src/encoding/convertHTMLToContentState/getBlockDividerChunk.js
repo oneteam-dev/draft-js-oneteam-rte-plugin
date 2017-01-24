@@ -1,5 +1,4 @@
 import { OrderedSet, Map } from 'immutable';
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 
 import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';
 
@@ -25,7 +24,7 @@ const getBlockDividerChunk = (
       depth: Math.max(0, Math.min(MAX_LIST_DEPTH, depth)),
     }],
   };
-  if (block === CHECKABLE_LIST_ITEM && hasCheckboxInput(element)) {
+  if (block === BLOCK_TYPES.CHECKABLE_LIST_ITEM && hasCheckboxInput(element)) {
     chunk.blocks[0].data = Map({ checked: !!element.children[0].checked });
   }
   if (block === BLOCK_TYPES.CODE_BLOCK) {

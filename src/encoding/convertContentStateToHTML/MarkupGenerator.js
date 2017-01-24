@@ -1,6 +1,5 @@
 import { ContentState, ContentBlock, Entity } from 'draft-js';
 import getEntityRanges, { CharacterMetaList } from 'draft-js-utils/lib/getEntityRanges';
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 import urlRegex from 'url-regex';
 import kebabCase from 'lodash/kebabCase';
 
@@ -131,7 +130,7 @@ export default class MarkupGenerator {
       this.output.push(`<${tag} style="text-align: center;">`);
     } else if (blockType === OLD_BLOCK_TYPES.ALIGN_JUSTIFY) {
       this.output.push(`<${tag} style="text-align: justify;">`);
-    } else if (blockType === CHECKABLE_LIST_ITEM) {
+    } else if (blockType === BLOCK_TYPES.CHECKABLE_LIST_ITEM) {
       this.output.push(`<${tag} class="task-list-item">`);
     } else {
       this.output.push(`<${tag}>`);
@@ -327,7 +326,7 @@ export default class MarkupGenerator {
       return content;
     }).join('');
 
-    if (blockType === CHECKABLE_LIST_ITEM) {
+    if (blockType === BLOCK_TYPES.CHECKABLE_LIST_ITEM) {
       const isChecked = block.getData().get('checked');
       ret = `<input type="checkbox"${isChecked ? ' checked ' : ' '}disabled /><span>${ret}</span>`;
     }

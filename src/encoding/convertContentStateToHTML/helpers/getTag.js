@@ -1,4 +1,3 @@
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 import { BLOCK_TYPES } from '../../../constants';
 
 // The reason this returns an array is because a single block might get wrapped
@@ -20,7 +19,7 @@ const getTag = (blockType: string): string => {
       return 'h6';
     case BLOCK_TYPES.UNORDERED_LIST_ITEM:
     case BLOCK_TYPES.ORDERED_LIST_ITEM:
-    case CHECKABLE_LIST_ITEM:
+    case BLOCK_TYPES.CHECKABLE_LIST_ITEM:
       return 'li';
     case BLOCK_TYPES.BLOCKQUOTE:
       return 'blockquote';

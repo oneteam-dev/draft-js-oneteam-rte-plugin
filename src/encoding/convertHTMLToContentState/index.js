@@ -14,7 +14,6 @@ import getSafeBodyFromHTML from 'draft-js/lib/getSafeBodyFromHTML';
 import sanitizeDraftText from 'draft-js/lib/sanitizeDraftText';
 import { List, OrderedSet, Map } from 'immutable';
 import nullthrows from 'nullthrows';
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
 
 import type { DraftInlineStyle } from 'draft-js/lib/DraftInlineStyle';
 
@@ -130,7 +129,7 @@ const genFragment = (
     newBlock = true;
     if (lastList === 'ul') {
       if (node.classList.contains('task-list-item')) {
-        nextBlockType = CHECKABLE_LIST_ITEM;
+        nextBlockType = BLOCK_TYPES.CHECKABLE_LIST_ITEM;
       } else {
         nextBlockType = BLOCK_TYPES.UNORDERED_LIST_ITEM;
       }

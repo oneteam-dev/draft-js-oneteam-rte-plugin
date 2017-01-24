@@ -1,5 +1,3 @@
-import { CHECKABLE_LIST_ITEM } from 'draft-js-checkable-list-item';
-
 import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';
 
 import { BLOCK_TYPES, OLD_BLOCK_TYPES } from '../../constants';
@@ -27,7 +25,7 @@ const getBlockTypeForTag = (
         return BLOCK_TYPES.ORDERED_LIST_ITEM;
       }
       if (element && element.classList.contains('task-list-item')) {
-        return CHECKABLE_LIST_ITEM;
+        return BLOCK_TYPES.CHECKABLE_LIST_ITEM;
       }
       return BLOCK_TYPES.UNORDERED_LIST_ITEM;
     case 'blockquote':
