@@ -51,4 +51,11 @@ describe('markdownToHTML', () => {
   <li>OL</li>
 </ol>`);
   });
+  it('escape in code block', () => {
+    markdown = '```\n<div>aaa</div>\nconst f = a => a\n```';
+    expect(subject()).to.equal(
+`<pre>&lt;div&gt;aaa&lt;/div&gt;
+const f = a =&gt; a</pre>`
+    );
+  });
 });

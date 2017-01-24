@@ -1,5 +1,6 @@
 import marked from 'marked';
 import htmlclean from 'htmlclean';
+import he from 'he';
 
 const renderer = new marked.Renderer();
 
@@ -15,9 +16,10 @@ renderer.listitem = (text) => {
   return `<li>${text}</li>\n`;
 };
 
-renderer.code = (code, language) => (
-  `<pre${language ? ` data-language="${language}"` : ''}>${code}</pre>`
-);
+renderer.code = (code, language) => {
+  const escapedCode = he.escape(code);
+  return `<pre${language ? ` data-language="${language}"` : ''}>${escapedCode}</pre>`;
+};
 
 renderer.paragraph = (text) => `<div>${text}</div>\n`;
 
