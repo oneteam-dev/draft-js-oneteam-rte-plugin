@@ -4,6 +4,9 @@
   "version": "0.0.1",
   "description": "A DraftJS plugin for supporting Oneteam specific elements",
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "eslint": "node_modules/.bin/eslint .",
     "flow": "node_modules/.bin/flow",
