@@ -28,6 +28,7 @@ const toMarkdownOptions = {
         return `\`\`\`${language || ''}\n${content}\n\`\`\`\n\n`;
       }
     },
+    // checkbox list
     {
       filter: (node) => {
         const firstSiblingNode = node.parentNode.firstChild;
@@ -36,6 +37,19 @@ const toMarkdownOptions = {
           node.nodeName === 'SPAN';
       },
       replacement: (content) => content
+    },
+    // Trim extra space and change to 2 space indent for list
+    // issue: https://github.com/domchristie/to-markdown/issues/161
+    // will monkey patching because not customizable
+    // ref: https://github.com/domchristie/to-markdown/blob/1fde68fd7cde63676bda85f8580b6be52a0b0a20/lib/md-converters.js#L105
+    {
+      filter: 'li',
+      replacement: (content, node) => {
+        const parent = node.parentNode;
+        const index = Array.prototype.indexOf.call(parent.children, node) + 1;
+        const prefix = /ol/i.test(parent.nodeName) ? `${index}. ` : '- ';
+        return prefix + content.replace(/^\s+/, '').replace(/\n/gm, '\n  ');
+      }
     }
   ],
   gfm: true

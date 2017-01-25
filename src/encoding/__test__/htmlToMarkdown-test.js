@@ -22,13 +22,17 @@ describe('htmlToMarkdown', () => {
       <li class="task-list-item">
         <input type="checkbox" disabled /><span><strong>CL mix</strong></span>
       </li>
+      <li>Normal list</li>
     </ul>
+    <li>Normal list</li>
   </li>
 </ul>`;
-    expect(subject()).to.equal(`*   [ ] CL
-*   [ ] CL
-    *   [x] CL
-    *   [ ] **CL mix**`);
+    expect(subject()).to.equal(`- [ ] CL
+- [ ] CL
+  - [x] CL
+  - [ ] **CL mix**
+  - Normal list
+- Normal list`);
   });
   it('line break', () => {
     html = '<div>Text1</div>\n<div><br /></div><div>Text2</div>';
