@@ -1,12 +1,12 @@
 import { convertToRaw } from 'draft-js';
 import { expect } from 'chai';
 
-import convertHTMLToContentState from '..';
+import convertToContent from '..';
 
-describe('convertHTMLToContentState', () => {
+describe('convertToContent', () => {
   it('multiple br', () => {
     const content = convertToRaw(
-      convertHTMLToContentState('<div>Text<br/><br/></div>')
+      convertToContent('<div>Text<br/><br/></div>')
     );
 
     expect(content.entityMap).to.deep.equal({});
@@ -21,7 +21,7 @@ describe('convertHTMLToContentState', () => {
   });
   it('nested blocks', () => {
     const content = convertToRaw(
-      convertHTMLToContentState('<div><div>div1</div><div>div2</div></div>')
+      convertToContent('<div><div>div1</div><div>div2</div></div>')
     );
 
     expect(content.entityMap).to.deep.equal({});
@@ -36,7 +36,7 @@ describe('convertHTMLToContentState', () => {
   });
   it('no block tags', () => {
     const content = convertToRaw(
-      convertHTMLToContentState('Text')
+      convertToContent('Text')
     );
 
     expect(content.entityMap).to.deep.equal({});
@@ -51,7 +51,7 @@ describe('convertHTMLToContentState', () => {
   });
   it('no block tag', () => {
     const content = convertToRaw(
-      convertHTMLToContentState('Text1<div>Text2</div>')
+      convertToContent('Text1<div>Text2</div>')
     );
 
     expect(content.entityMap).to.deep.equal({});
@@ -68,7 +68,7 @@ describe('convertHTMLToContentState', () => {
     });
   });
   it('null', () => {
-    const actual = convertHTMLToContentState('');
+    const actual = convertToContent('');
     expect(actual).to.equal(null);
   });
 });

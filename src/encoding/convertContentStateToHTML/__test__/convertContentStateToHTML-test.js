@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 import Draft from 'draft-js';
 
-import converToHTML from '../convertContentStateToHTML';
+import converToHTML from '..';
 
 describe('convertContentStateToHTML', () => {
   it('Dose Not render IMAGE', () => {
