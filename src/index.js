@@ -1,14 +1,6 @@
 // @flow
 
 import merge from 'lodash/merge';
-
-// // ********************************************************************
-// //
-// // This is temporary. we should re-implementation
-// import convertHTML from 'oneteam-rte-converter/lib/convertFromHTML';
-// import convertState from 'oneteam-rte-converter/lib/editorStateToHTML';
-// // ********************************************************************
-
 import handleKeyCommand from './handleKeyCommand';
 import handleReturn from './handleReturn';
 import onTab from './onTab';
@@ -37,11 +29,6 @@ const createOneteamRTEPlugin = (options: Config): Object => {
   const config = merge({}, defaultConfig, options);
 
   return {
-    // blockRenderMap: Map({
-    //   'pdf-preview': {
-    //     element: 'pdf-preview'
-    //   }
-    // }),
     convertHTML,
     convertState,
     store,
