@@ -87,11 +87,7 @@ export default class MarkupGenerator {
     this.output.push(this.renderBlockContent(block));
     // Look ahead and see if we will nest list.
     const nextBlock = this.getNextBlock();
-    if (
-      canHaveDepth(blockType) &&
-      nextBlock &&
-      nextBlock.getDepth() === block.getDepth() + 1
-    ) {
+    if (this.hasListBlock(blockType, nextBlock, block)) {
       this.output.push('\n');
       // This is a litle hacky: temporarily stash our current wrapperTag and
       // render child list(s).
@@ -109,6 +105,10 @@ export default class MarkupGenerator {
     this.writeEndTag(blockType);
   }
 
+  hasListBlock(blockType: string, nextBlock: ContentBlock, block: ContentBlock): boolean {
+    return canHaveDepth(blockType) && !!nextBlock && nextBlock.getDepth() === block.getDepth() + 1;
+  }
+
   processBlocksAtDepth(depth: number) {
     let block = this.blocks[this.currentBlock];
     while (block && block.getDepth() === depth) {
@@ -124,16 +124,21 @@ export default class MarkupGenerator {
 
   writeStartTag(blockType) {
     const tag = getTag(blockType);
-    if (blockType === OLD_BLOCK_TYPES.ALIGN_RIGHT) {
-      this.output.push(`<${tag} style="text-align: right;">`);
-    } else if (blockType === OLD_BLOCK_TYPES.ALIGN_CENTER) {
-      this.output.push(`<${tag} style="text-align: center;">`);
-    } else if (blockType === OLD_BLOCK_TYPES.ALIGN_JUSTIFY) {
-      this.output.push(`<${tag} style="text-align: justify;">`);
-    } else if (blockType === BLOCK_TYPES.CHECKABLE_LIST_ITEM) {
-      this.output.push(`<${tag} class="task-list-item">`);
-    } else {
-      this.output.push(`<${tag}>`);
+    switch (blockType) {
+      case OLD_BLOCK_TYPES.ALIGN_RIGHT:
+        this.output.push(`<${tag} style="text-align: right;">`);
+        break;
+      case OLD_BLOCK_TYPES.ALIGN_CENTER:
+        this.output.push(`<${tag} style="text-align: center;">`);
+        break;
+      case OLD_BLOCK_TYPES.ALIGN_JUSTIFY:
+        this.output.push(`<${tag} style="text-align: justify;">`);
+        break;
+      case BLOCK_TYPES.CHECKABLE_LIST_ITEM:
+        this.output.push(`<${tag} class="task-list-item">`);
+        break;
+      default:
+        this.output.push(`<${tag}>`);
     }
   }
 

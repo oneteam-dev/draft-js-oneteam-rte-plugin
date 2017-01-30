@@ -80,8 +80,8 @@ const getChunkWithEntity = (
         data.original_url = src;
         data.thumbnails = {
           preview: {
-            width: width ? parseInt(width, 10) : undefined,
-            height: height ? parseInt(height, 10) : undefined,
+            width: parseInt(width, 10) || null,
+            height: parseInt(height, 10) || null,
             content_type: 'application/pdf',
             url: src
           }
