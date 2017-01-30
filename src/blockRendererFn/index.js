@@ -1,7 +1,9 @@
+import merge from 'lodash/merge';
+import isFunction from 'lodash/isFunction';
+import decorateComponentWithProps from 'decorate-component-with-props';
+
 import type { ContentBlock } from 'draft-js';
 
-import merge from 'lodash/merge';
-import decorateComponentWithProps from 'decorate-component-with-props';
 import Image from '../components/Image';
 import atomicBlockRenderer from './atomicBlockRenderer';
 import { ATOMIC, FILE_PLACEHOLDER } from '../constants';
@@ -11,7 +13,7 @@ import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createBlockRendererFn = (config: Config): Function => (
   (block: ContentBlock, pluginFunctions: PluginFunctions): ?Object => {
-    if (typeof config.customBlockRendererFn === 'function') {
+    if (isFunction(config.customBlockRendererFn)) {
       const ret = config.customBlockRendererFn(block, pluginFunctions);
       if (ret) {
         return ret;

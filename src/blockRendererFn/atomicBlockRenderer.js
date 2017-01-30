@@ -1,4 +1,5 @@
 import { Entity, ContentBlock } from 'draft-js';
+import isFunction from 'lodash/isFunction';
 import Image from '../components/Image';
 import DownloadLink from '../components/DownloadLink';
 import IFrame from '../components/IFrame';
@@ -22,7 +23,7 @@ const atomicBlockRenderer = (
 
   const entity = Entity.get(entityKey);
 
-  if (typeof config.customAtomicBlockRendererFn === 'function') {
+  if (isFunction(config.customAtomicBlockRendererFn)) {
     const atomicBlock = config.customAtomicBlockRendererFn(entity, block, pluginFunctions);
     if (atomicBlock) {
       return atomicBlock;
@@ -71,7 +72,7 @@ const atomicBlockRenderer = (
         props: {
           ...entity.getData(),
           onComplete: (data) => {
-            if (typeof config.onCompleteFileUpload === 'function') {
+            if (isFunction(config.onCompleteFileUpload)) {
               config.onCompleteFileUpload(data, block);
             }
 

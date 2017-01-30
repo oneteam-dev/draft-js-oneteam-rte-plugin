@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import unionClassNames from 'union-class-names';
+import isFunction from 'lodash/isFunction';
 
 export default class Button extends Component {
   onMouseDown = (e) => {
     const { onMouseDown } = this.props;
-    if (typeof onMouseDown === 'function') {
+    if (isFunction(onMouseDown)) {
       e.preventDefault();
       onMouseDown();
     }
@@ -12,7 +13,7 @@ export default class Button extends Component {
 
   onClick = (e) => {
     const { onClick } = this.props;
-    if (typeof onClick === 'function') {
+    if (isFunction(onClick)) {
       e.preventDefault();
       onClick();
     }
