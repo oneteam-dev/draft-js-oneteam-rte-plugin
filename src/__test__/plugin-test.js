@@ -3,7 +3,7 @@ import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
 import Draft, { EditorState, SelectionState } from 'draft-js';
 
-import createOneteamRTEPlugin from '../';
+import createOneteamRTEPlugin from '..';
 
 chai.use(sinonChai);
 

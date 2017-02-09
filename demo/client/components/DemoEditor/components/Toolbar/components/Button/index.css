@@ -1,0 +1,11 @@
+.root {
+  appearance: none;
+  border: 0;
+  background: none;
+  color: gray;
+  outline: 0;
+}
+
+.active {
+  color: indianred;
+}

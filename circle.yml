@@ -1,7 +1,7 @@
 machine:
   timezone: UTC
   node:
-    version: 4.2.6
+    version: 6.9.4
   pre:
     - "git config --global user.name 'Circle CI'"
     - "git config --global user.email 'a+circleci@ngs.io'"
@@ -13,6 +13,7 @@ test:
   override:
     - npm test
     - npm run eslint -- --max-warnings 0
+    - npm run flow
   post:
     - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
     - cp -R lib $CIRCLE_ARTIFACTS/
