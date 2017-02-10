@@ -39,3 +39,4 @@ jspm_packages
 demo/public
 .deploy
 test-results.xml
+lib
