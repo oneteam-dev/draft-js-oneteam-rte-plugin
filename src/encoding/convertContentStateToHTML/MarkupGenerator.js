@@ -205,6 +205,11 @@ export default class MarkupGenerator {
         }
 
         // These are reverse alphabetical by tag name.
+        if (style.has(CODE)) {
+          // If our block type is CODE then we are already wrapping the whole
+          // block in a `<code>` so don't wrap inline code elements.
+          encodedText = (blockType === BLOCK_TYPES.CODE_BLOCK) ? encodedText : `<code>${encodedText}</code>`;
+        }
         if (style.has(BOLD)) {
           encodedText = `<strong>${encodedText}</strong>`;
         }
@@ -216,11 +221,6 @@ export default class MarkupGenerator {
         }
         if (style.has(STRIKETHROUGH)) {
           encodedText = `<del>${encodedText}</del>`;
-        }
-        if (style.has(CODE)) {
-          // If our block type is CODE then we are already wrapping the whole
-          // block in a `<code>` so don't wrap inline code elements.
-          encodedText = (blockType === BLOCK_TYPES.CODE_BLOCK) ? encodedText : `<code>${encodedText}</code>`;
         }
         if (entityType != null && entityType === ENTITY_TYPES.LINK) {
           const attrs = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? dataToAttr(entityType, entity) : null;
