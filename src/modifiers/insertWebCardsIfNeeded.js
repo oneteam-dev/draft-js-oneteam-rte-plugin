@@ -4,6 +4,7 @@ import { EditorState, Modifier } from 'draft-js';
 import urlRegex from 'url-regex';
 import insertWebCards from '../modifiers/insertWebCards';
 import getCurrentBlock from '../utils/getCurrentBlock';
+import { CODE_BLOCK } from '../constants';
 
 const insertWebCardsIfNeeded = (editorState: EditorState): EditorState => {
   const selection = editorState.getSelection();
@@ -12,7 +13,7 @@ const insertWebCardsIfNeeded = (editorState: EditorState): EditorState => {
   const urls = block.getText().match(urlRegex());
   const isCursorAtEnd = block.getLength() === selection.getStartOffset();
 
-  if (!webcardRendered && urls && isCursorAtEnd) {
+  if (!webcardRendered && urls && isCursorAtEnd && block.getType() !== CODE_BLOCK) {
     const content = editorState.getCurrentContent();
     const newContent = Modifier.setBlockData(content, selection, { webcardRendered: true });
     return insertWebCards(EditorState.push(editorState, newContent, 'change-block-data'), urls);
