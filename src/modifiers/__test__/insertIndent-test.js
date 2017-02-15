@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 
 import insertIndent from '../insertIndent';
 
@@ -16,20 +17,13 @@ describe('insertIndent', () => {
       data: {}
     }]
   };
-  const selection = new SelectionState({
+  const rawSelectionState = {
     anchorKey: 'item1',
     anchorOffset: 0,
     focusKey: 'item1',
     focusOffset: 0,
     isBackward: false,
     hasFocus: true
-  });
-  const createEditorState = (rawContentState) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
   };
   it('noop', () => {
     const beforeRawContentState = {
@@ -44,7 +38,7 @@ describe('insertIndent', () => {
         data: {}
       }]
     };
-    const editorState = createEditorState(beforeRawContentState);
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = insertIndent(editorState);
     expect(newEditorState).to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
@@ -67,7 +61,7 @@ describe('insertIndent', () => {
         data: {}
       }]
     };
-    const editorState = createEditorState(beforeRawContentState);
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = insertIndent(editorState);
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());

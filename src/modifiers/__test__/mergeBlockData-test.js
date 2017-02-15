@@ -1,24 +1,10 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 
 import mergeBlockData from '../mergeBlockData';
 
 describe('mergeBlockData', () => {
-  const selection = new SelectionState({
-    anchorKey: 'item1',
-    anchorOffset: 0,
-    focusKey: 'item1',
-    focusOffset: 0,
-    isBackward: false,
-    hasFocus: true
-  });
-  const createEditorState = (rawContentState) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
   it('Merge block metadata', () => {
     const beforeRawContentState = {
       entityMap: {},
@@ -32,7 +18,15 @@ describe('mergeBlockData', () => {
         data: { foo: 1, bar: 2 }
       }]
     };
-    const editorState = createEditorState(beforeRawContentState);
+    const rawSelectionState = {
+      anchorKey: 'item1',
+      anchorOffset: 0,
+      focusKey: 'item1',
+      focusOffset: 0,
+      isBackward: false,
+      hasFocus: true
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = mergeBlockData(editorState, 'item1', { foo: 3, baz: 4 });
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());

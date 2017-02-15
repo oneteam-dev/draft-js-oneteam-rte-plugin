@@ -1,26 +1,10 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
-
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 import removeAllInlineStyles from '../removeAllInlineStyles';
 
 describe('removeAllInlineStyles', () => {
-  const createEditorState = (rawContentState, selection) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
-
   it('selection collapsed', () => {
-    const selection = new SelectionState({
-      anchorKey: 'item1',
-      anchorOffset: 0,
-      focusKey: 'item1',
-      focusOffset: 0,
-      isBackward: false,
-      hasFocus: true
-    });
     const editorState = createEditorState(
       {
         entityMap: {},
@@ -45,7 +29,14 @@ describe('removeAllInlineStyles', () => {
           data: {}
         }]
       },
-      selection
+      {
+        anchorKey: 'item1',
+        anchorOffset: 0,
+        focusKey: 'item1',
+        focusOffset: 0,
+        isBackward: false,
+        hasFocus: true
+      }
     );
     const newEditorState = removeAllInlineStyles(editorState);
     expect(newEditorState).not.to.equal(editorState);
@@ -66,14 +57,6 @@ describe('removeAllInlineStyles', () => {
     });
   });
   it('only selection ranges', () => {
-    const selection = new SelectionState({
-      anchorKey: 'item1',
-      anchorOffset: 0,
-      focusKey: 'item1',
-      focusOffset: 3,
-      isBackward: false,
-      hasFocus: true
-    });
     const editorState = createEditorState(
       {
         entityMap: {},
@@ -98,7 +81,14 @@ describe('removeAllInlineStyles', () => {
           data: {}
         }]
       },
-      selection
+      {
+        anchorKey: 'item1',
+        anchorOffset: 0,
+        focusKey: 'item1',
+        focusOffset: 3,
+        isBackward: false,
+        hasFocus: true
+      }
     );
     const newEditorState = removeAllInlineStyles(editorState);
     expect(newEditorState).not.to.equal(editorState);

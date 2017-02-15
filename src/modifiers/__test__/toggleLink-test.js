@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 import omitBlocksKeyFromContentState from './helpers/omitBlocksKeyFromContentState';
 
 import toggleLink from '../toggleLink';
@@ -29,7 +30,6 @@ describe('toggleLink', () => {
       data: {}
     }]
   };
-
   const afterRawContentState = {
     entityMap: {},
     blocks: [{
@@ -42,24 +42,16 @@ describe('toggleLink', () => {
       data: {}
     }]
   };
-  const createEditorState = (rawContentState, selection) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
-
   it('toggle', () => {
-    const selection = new SelectionState({
+    const rawSelectionState = {
       anchorKey: 'item1',
       anchorOffset: 0,
       focusKey: 'item1',
       focusOffset: 4,
       isBackward: false,
       hasFocus: true
-    });
-    const editorState = createEditorState(beforeRawContentState, selection);
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = toggleLink(editorState);
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
@@ -72,15 +64,15 @@ describe('toggleLink', () => {
     );
   });
   it('noop', () => {
-    const selection = new SelectionState({
+    const rawSelectionState = {
       anchorKey: 'item1',
       anchorOffset: 0,
       focusKey: 'item1',
       focusOffset: 0,
       isBackward: false,
       hasFocus: true
-    });
-    const editorState = createEditorState(beforeRawContentState, selection);
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = toggleLink(editorState);
     expect(newEditorState).to.equal(editorState);
   });

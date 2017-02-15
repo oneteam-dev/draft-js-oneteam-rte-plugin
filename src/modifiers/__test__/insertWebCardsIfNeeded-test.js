@@ -1,17 +1,10 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
 import omitBlocksKeyFromContentState from './helpers/omitBlocksKeyFromContentState';
-
+import createEditorState from '../../__test__/helpers/createEditorState';
 import insertWebCardsIfNeeded from '../insertWebCardsIfNeeded';
 
 describe('insertWebCardsIfNeeded', () => {
-  const createEditorState = (rawContentState, selection) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
   it('noop', () => {
     const beforeRawContentState = {
       entityMap: {},
@@ -26,15 +19,15 @@ describe('insertWebCardsIfNeeded', () => {
       }]
     };
 
-    const selection = new SelectionState({
+    const rawSelectionState = {
       anchorKey: 'item1',
       anchorOffset: 4,
       focusKey: 'item1',
       focusOffset: 4,
       isBackward: false,
       hasFocus: true
-    });
-    const editorState = createEditorState(beforeRawContentState, selection);
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = insertWebCardsIfNeeded(editorState);
     expect(newEditorState).to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
@@ -106,15 +99,15 @@ describe('insertWebCardsIfNeeded', () => {
         },
       ]
     };
-    const selection = new SelectionState({
+    const rawSelectionState = {
       anchorKey: 'item1',
       anchorOffset: 20,
       focusKey: 'item1',
       focusOffset: 20,
       isBackward: false,
       hasFocus: true
-    });
-    const editorState = createEditorState(beforeRawContentState, selection);
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = insertWebCardsIfNeeded(editorState);
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());

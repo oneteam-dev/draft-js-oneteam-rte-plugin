@@ -1,24 +1,11 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
 import getCurrentBlock from '../../utils/getCurrentBlock';
+import createEditorState from '../../__test__/helpers/createEditorState';
+
 import removeBlock from '../removeBlock';
 
 describe('removeBlock', () => {
-  const selection = new SelectionState({
-    anchorKey: 'item1',
-    anchorOffset: 0,
-    focusKey: 'item1',
-    focusOffset: 0,
-    isBackward: false,
-    hasFocus: true
-  });
-  const createEditorState = (rawContentState) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
   it('Remove current block', () => {
     const beforeRawContentState = {
       entityMap: {},
@@ -41,7 +28,15 @@ describe('removeBlock', () => {
         data: {}
       }]
     };
-    const editorState = createEditorState(beforeRawContentState);
+    const rawSelectionState = {
+      anchorKey: 'item1',
+      anchorOffset: 0,
+      focusKey: 'item1',
+      focusOffset: 0,
+      isBackward: false,
+      hasFocus: true
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     const newEditorState = removeBlock(editorState, getCurrentBlock(editorState));
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
