@@ -1,6 +1,7 @@
 import chai, { expect } from 'chai';
 import sinonChai from 'sinon-chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 import adjustBlockDepth from '../adjustBlockDepth';
 
 chai.use(sinonChai);
@@ -18,20 +19,13 @@ describe('adjustBlockDepth', () => {
       data: {}
     })))
   });
-  const selectionState = new SelectionState({
+  const rawSelectionState = {
     anchorKey: 'item1',
     anchorOffset: 0,
     focusKey: 'item1',
     focusOffset: 0,
     isBackward: false,
     hasFocus: true
-  });
-  const createEditorState = (...args) => {
-    const contentState = Draft.convertFromRaw(rawContentState(...args));
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selectionState
-    );
   };
   [
     'unordered-list-item',
@@ -40,7 +34,7 @@ describe('adjustBlockDepth', () => {
   ].forEach((type) => {
     describe(type, () => {
       it('adds depth', () => {
-        const editorState = createEditorState(type, 0, 0);
+        const editorState = createEditorState(rawContentState(type, 0, 0), rawSelectionState);
         const newEditorState = adjustBlockDepth(editorState, 1, 4);
         expect(
           newEditorState

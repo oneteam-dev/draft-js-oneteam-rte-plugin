@@ -1,24 +1,10 @@
 import { expect } from 'chai';
-import Draft, { EditorState, SelectionState } from 'draft-js';
+import Draft from 'draft-js';
+import createEditorState from '../../__test__/helpers/createEditorState';
 
 import mergeEntityData from '../mergeEntityData';
 
 describe('mergeEntityData', () => {
-  const selection = new SelectionState({
-    anchorKey: 'item1',
-    anchorOffset: 0,
-    focusKey: 'item1',
-    focusOffset: 0,
-    isBackward: false,
-    hasFocus: true
-  });
-  const createEditorState = (rawContentState) => {
-    const contentState = Draft.convertFromRaw(rawContentState);
-    return EditorState.forceSelection(
-      EditorState.createWithContent(contentState),
-      selection
-    );
-  };
   it('Merge block metadata', () => {
     const entityKey = Draft.Entity.create('EXAMPLE', 'MUTABLE', {
       foo: 1,
@@ -51,7 +37,15 @@ describe('mergeEntityData', () => {
         data: {}
       }]
     };
-    const editorState = createEditorState(beforeRawContentState);
+    const rawSelectionState = {
+      anchorKey: 'item1',
+      anchorOffset: 0,
+      focusKey: 'item1',
+      focusOffset: 0,
+      isBackward: false,
+      hasFocus: true
+    };
+    const editorState = createEditorState(beforeRawContentState, rawSelectionState);
     mergeEntityData(editorState, entityKey, { foo: 3, baz: 4 });
     const actual = Draft.Entity.get(entityKey).getData();
     expect(actual).to.deep.equal({ foo: 3, bar: 2, baz: 4 });
