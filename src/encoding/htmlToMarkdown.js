@@ -9,12 +9,15 @@ const toMarkdownOptions = {
     {
       filter: 'br',
       replacement: (content, node) => {
-        // Blank line
         const { parentNode } = node;
         if (
-          (parentNode.nodeName === 'DIV' || parentNode.nodeName === 'P') &&
-          !!parentNode.nextElementSibling &&
-          parentNode.children.length === 1
+          parentNode.nodeName === 'BLOCKQUOTE' ||
+          // Blank line
+          (
+            (parentNode.nodeName === 'DIV' || parentNode.nodeName === 'P') &&
+            !!parentNode.nextElementSibling &&
+            parentNode.children.length === 1
+          )
         ) {
           return '<br />';
         }
@@ -49,6 +52,13 @@ const toMarkdownOptions = {
         const index = Array.prototype.indexOf.call(parent.children, node) + 1;
         const prefix = /ol/i.test(parent.nodeName) ? `${index}. ` : '- ';
         return prefix + content.replace(/^\s+/, '').replace(/\n/gm, '\n  ');
+      }
+    },
+    {
+      filter: 'blockquote',
+      replacement: (content) => {
+        const ret = content.split(/<br\s*\/?>/).map((str) => `\n> ${str}`).join('');
+        return ret;
       }
     }
   ],
