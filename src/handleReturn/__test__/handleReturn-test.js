@@ -11,11 +11,13 @@ describe('handleReturn', () => {
   let handleReturnListItem;
   let handleReturnToInsertWebCard;
   let handleReturnToSplitBlockIfCursorAtStart;
+  let handleReturnBlockquote;
   const handlers = {
     handleReturnWithCommand,
     handleReturnListItem,
     handleReturnToInsertWebCard,
-    handleReturnToSplitBlockIfCursorAtStart
+    handleReturnToSplitBlockIfCursorAtStart,
+    handleReturnBlockquote
   };
 
   afterEach(() => {

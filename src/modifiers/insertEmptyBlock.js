@@ -3,7 +3,7 @@
 import { EditorState, DraftBlockType } from 'draft-js';
 import insertNewBlock from './insertNewBlock';
 
-const insertEmptyBlock = (editorState: EditorState, blockType: DraftBlockType = 'unstyled'): EditorState => (
+const insertEmptyBlock = (editorState: EditorState, blockType?: DraftBlockType = 'unstyled'): EditorState => (
   insertNewBlock(editorState, blockType)
 );
 

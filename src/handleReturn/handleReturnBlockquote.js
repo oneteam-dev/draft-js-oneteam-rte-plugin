@@ -16,25 +16,23 @@ const handleReturnBlockquote = (
   config: Config,
   { setEditorState }: PluginFunctions
 ): boolean => {
-  if (RichUtils.getCurrentBlockType(editorState) === BLOCKQUOTE) {
+  const block = getCurrentBlock(editorState);
+  if (block.getType() === BLOCKQUOTE) {
     const selection = editorState.getSelection();
-    const block = getCurrentBlock(editorState);
     const collapsed = selection.isCollapsed();
-    const cursorAtEnd = block.getLength() === selection.getStartOffset();
-    const softNewlineAtEnd = block.getText()[block.getLength() - 1] === '\n';
+    const length = block.getLength();
+    const currentText = block.getText();
+    const cursorAtEnd = length === selection.getStartOffset();
+    const softNewlineAtEnd = currentText[length - 1] === '\n';
     const withMetaKey = event.ctrlKey || event.shiftKey || event.metaKey || event.altKey;
 
     let newEditorState;
     if (collapsed && cursorAtEnd && (softNewlineAtEnd || withMetaKey)) {
-      const text = trimEnd(block.getText(), '\n');
-      const chars = block.getCharacterList();
-      const characterList = chars.delete(chars.size - 1);
+      const text = softNewlineAtEnd ? trimEnd(currentText, '\n') : currentText;
+      const charList = block.getCharacterList();
+      const characterList = softNewlineAtEnd ? charList.delete(charList.size - 1) : charList;
       newEditorState = insertEmptyBlock(
-        applyBlockData(
-          editorState,
-          block.getKey(),
-          { type: BLOCKQUOTE, text, characterList }
-        )
+        applyBlockData(editorState, block.getKey(), { type: BLOCKQUOTE, text, characterList })
       );
     } else {
       newEditorState = RichUtils.insertSoftNewline(editorState);
