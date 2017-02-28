@@ -2,14 +2,15 @@
 
 import { EditorState, Modifier } from 'draft-js';
 
-const insertText = (editorState: EditorState, text: string): EditorState => {
+const insertText = (editorState: EditorState, text: string, entity?: ?string = null): EditorState => {
   const selection = editorState.getSelection();
   const content = editorState.getCurrentContent();
-  const newContent = Modifier.insertText(
+  const newContent = Modifier[selection.isCollapsed() ? 'insertText' : 'replaceText'](
     content,
     selection,
     text,
-    editorState.getCurrentInlineStyle()
+    editorState.getCurrentInlineStyle(),
+    entity
   );
 
   return EditorState.push(

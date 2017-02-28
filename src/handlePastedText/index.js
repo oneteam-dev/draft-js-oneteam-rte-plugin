@@ -23,7 +23,7 @@ const createHandlePastedText = (/* config: Object */): Function => (
 
     if (currentBlockType === CODE_BLOCK) {
       setEditorState(
-        insertText(editorState, text),
+        insertText(editorState, text)
       );
       return 'handled';
     } else if (urls && currentBlockType !== CODE_BLOCK) {

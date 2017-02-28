@@ -6,6 +6,7 @@ import handleReturnWithCommand from './handleReturnWithCommand';
 import handleReturnListItem from './handleReturnListItem';
 import handleReturnToInsertWebCard from './handleReturnToInsertWebCard';
 import handleReturnToSplitBlockIfCursorAtStart from './handleReturnToSplitBlockIfCursorAtStart';
+import handleReturnBlockquote from './handleReturnBlockquote';
 
 import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
@@ -27,6 +28,10 @@ const createHandleReturn = (config: Config): Function => (
     }
 
     if (handleReturnToSplitBlockIfCursorAtStart(editorState, config, pluginFunctions)) {
+      return 'handled';
+    }
+
+    if (handleReturnBlockquote(event, editorState, config, pluginFunctions)) {
       return 'handled';
     }
 

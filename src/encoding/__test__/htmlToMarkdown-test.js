@@ -59,4 +59,16 @@ describe('htmlToMarkdown', () => {
 import path from 'path';</pre>`;
     expect(subject()).to.equal('```\nimport fs from \'fs\';\nimport path from \'path\';\n```');
   });
+  it('blockquote multi line', () => {
+    html = '<blockquote>line 1<br />line 2<br />line 3</blockquote>';
+    expect(subject()).to.equal('> line 1\n> line 2\n> line 3');
+  });
+  it('blockquote single line', () => {
+    html = '<blockquote>line 1</blockquote>';
+    expect(subject()).to.equal('> line 1');
+  });
+  it('continuous 2 blockquote blocks', () => {
+    html = '<blockquote>blockquote 1</blockquote><blockquote>blockquote 2</blockquote>';
+    expect(subject()).to.equal('> blockquote 1\n> blockquote 2');
+  });
 });

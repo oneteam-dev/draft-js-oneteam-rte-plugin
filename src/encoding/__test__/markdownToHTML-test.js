@@ -58,4 +58,22 @@ describe('markdownToHTML', () => {
 const f = a =&gt; a</pre>`
     );
   });
+  it('blockquote multi line', () => {
+    markdown = '> line 1\n> line 2\n> line 3';
+    expect(subject()).to.equal(
+`<blockquote>
+  <div>line 1
+    <br/>line 2
+    <br/>line 3</div>
+</blockquote>`
+    );
+  });
+  it('blockquote single line', () => {
+    markdown = '> line 1';
+    expect(subject()).to.equal(
+`<blockquote>
+  <div>line 1</div>
+</blockquote>`
+    );
+  });
 });

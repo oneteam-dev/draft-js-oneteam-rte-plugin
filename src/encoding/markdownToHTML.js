@@ -23,6 +23,10 @@ renderer.code = (code, language) => {
 
 renderer.paragraph = (text) => `<div>${text}</div>\n`;
 
+renderer.blockquote = (text) => {
+  return `<blockquote>${text.replace(/\n$/, '').split('\n').join('<br />')}</blockquote>`;
+};
+
 marked.setOptions({
   gfm: true,
   smartLists: true,

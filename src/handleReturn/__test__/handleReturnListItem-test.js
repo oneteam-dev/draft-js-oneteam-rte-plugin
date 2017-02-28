@@ -37,10 +37,10 @@ describe('handleReturnListItem', () => {
     handleReturnListItem.__Rewire__('isListBlock', isListBlock);
     handleReturnListItem.__Rewire__('getCurrentBlock', getCurrentBlock);
 
-    expect(setEditorState.called).to.be.false();
     expect(
       handleReturnListItem(editorState, {}, { setEditorState })
     ).to.be.false();
+    expect(setEditorState.called).to.be.false();
   });
   [0, 1].forEach((depth) => {
     it(`return true depth ${depth}`, () => {

@@ -18,6 +18,7 @@ describe('handleKeyCommand', () => {
     handleKeyCommand.__ResetDependency__('getCurrentBlock');
     handleKeyCommand.__ResetDependency__('isListBlock');
     handleKeyCommand.__ResetDependency__('removeBlockStyle');
+    handleKeyCommand.__ResetDependency__('RichUtils');
   });
   it('is function', () => {
     const actual = handleKeyCommand({});
