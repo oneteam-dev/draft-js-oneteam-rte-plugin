@@ -23,9 +23,9 @@ renderer.code = (code, language) => {
 
 renderer.paragraph = (text) => `<div>${text}</div>\n`;
 
-renderer.blockquote = (text) => (
-  `<blockquote>${text.split('\n').filter((s) => !!s).join('<br />')}</blockquote>`
-);
+renderer.blockquote = (text) => {
+  return `<blockquote>${text.replace(/\n$/, '').split('\n').join('<br />')}</blockquote>`;
+};
 
 marked.setOptions({
   gfm: true,
