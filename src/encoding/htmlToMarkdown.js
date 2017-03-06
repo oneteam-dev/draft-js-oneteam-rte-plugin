@@ -1,17 +1,33 @@
 import toMarkdown from 'to-markdown';
 
+const isInNode = (nodeName, node, maxDepth = 2) => {
+  if (maxDepth <= 0) {
+    return false;
+  }
+  if (node.parentNode.nodeName === nodeName) {
+    return true;
+  }
+  return isInNode(nodeName, node.parentNode, maxDepth - 1);
+};
+
 const toMarkdownOptions = {
   converters: [
     {
       filter: ['div', 'figure', 'p'],
-      replacement: (content) => `\n\n${content}\n\n`
+      replacement: (content, node) => {
+        // strip line-break if in <blockquote />
+        if (node.parentNode.nodeName === 'BLOCKQUOTE') {
+          return content;
+        }
+        return `\n\n${content}\n\n`;
+      }
     },
     {
       filter: 'br',
       replacement: (content, node) => {
         const { parentNode } = node;
         if (
-          parentNode.nodeName === 'BLOCKQUOTE' ||
+          isInNode('BLOCKQUOTE', node) ||
           // Blank line
           (
             (parentNode.nodeName === 'DIV' || parentNode.nodeName === 'P') &&
@@ -40,6 +56,20 @@ const toMarkdownOptions = {
           node.nodeName === 'SPAN';
       },
       replacement: (content) => content
+    },
+    // header in blockquote
+    {
+      filter: (node) => {
+        return /^H(1|2|3|4|5|6)$/.test(node.nodeName) && isInNode('BLOCKQUOTE', node);
+      },
+      replacement: (content, node) => {
+        const level = node.nodeName.charAt(1);
+        let prefix = '';
+        for (let i = 0; i < level; i++) {
+          prefix += '#';
+        }
+        return `${prefix} ${content}`;
+      }
     },
     // Trim extra space and change to 2 space indent for list
     // issue: https://github.com/domchristie/to-markdown/issues/161

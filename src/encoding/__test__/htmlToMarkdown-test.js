@@ -71,4 +71,12 @@ import path from 'path';</pre>`;
     html = '<blockquote>blockquote 1</blockquote><blockquote>blockquote 2</blockquote>';
     expect(subject()).to.equal('> blockquote 1\n> blockquote 2');
   });
+  it('blockquote blocks contains div', () => {
+    html = '<blockquote><div>blockquote 1<br />blockquote 2</div></blockquote>';
+    expect(subject()).to.equal('> blockquote 1\n> blockquote 2');
+  });
+  it('blockquote blocks contains header', () => {
+    html = '<blockquote><h1>H1</h1></blockquote>';
+    expect(subject()).to.equal('> # H1');
+  });
 });
