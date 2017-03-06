@@ -57,6 +57,20 @@ const toMarkdownOptions = {
       },
       replacement: (content) => content
     },
+    // header in blockquote
+    {
+      filter: (node) => {
+        return /^H(1|2|3|4|5|6)$/.test(node.nodeName) && isInNode('BLOCKQUOTE', node);
+      },
+      replacement: (content, node) => {
+        const level = node.nodeName.charAt(1);
+        let prefix = '';
+        for (let i = 0; i < level; i++) {
+          prefix += '#';
+        }
+        return `${prefix} ${content}`;
+      }
+    },
     // Trim extra space and change to 2 space indent for list
     // issue: https://github.com/domchristie/to-markdown/issues/161
     // will monkey patching because not customizable

@@ -76,4 +76,12 @@ const f = a =&gt; a</pre>`
 </blockquote>`
     );
   });
+  it('blockquote contains header', () => {
+    markdown = '> # header 1';
+    expect(subject()).to.equal(
+`<blockquote>
+  <h1 id="header-1">header 1</h1>
+</blockquote>`
+    );
+  });
 });
