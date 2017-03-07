@@ -5,6 +5,7 @@ import urlRegex from 'url-regex';
 
 import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
 
+import processText from './processText';
 import insertText from '../modifiers/insertText';
 import insertWebCards from '../modifiers/insertWebCards';
 import { CODE_BLOCK } from '../constants';
@@ -29,7 +30,7 @@ const createHandlePastedText = (/* config: Object */): Function => (
     } else if (urls && currentBlockType !== CODE_BLOCK) {
       setEditorState(
         insertWebCards(
-          insertText(editorState, text),
+          processText(editorState, text),
           urls
         )
       );

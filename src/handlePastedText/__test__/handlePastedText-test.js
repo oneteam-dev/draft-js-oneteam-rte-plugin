@@ -9,6 +9,7 @@ chai.use(sinonChai);
 describe('handlePastedText', () => {
   let getEditorState;
   let setEditorState;
+  let processText;
   let insertText;
   let insertWebCards;
   let editorState;
@@ -19,13 +20,16 @@ describe('handlePastedText', () => {
   });
   beforeEach(() => {
     setEditorState = sinon.spy();
+    processText = sinon.spy();
     insertText = sinon.spy();
     insertWebCards = sinon.spy();
 
+    handlePastedText.__Rewire__('processText', processText);
     handlePastedText.__Rewire__('insertText', insertText);
     handlePastedText.__Rewire__('insertWebCards', insertWebCards);
   });
   afterEach(() => {
+    handlePastedText.__ResetDependency__('processText');
     handlePastedText.__ResetDependency__('insertText');
     handlePastedText.__ResetDependency__('insertWebCards');
   });
@@ -119,7 +123,8 @@ describe('handlePastedText', () => {
       expect(actual).to.equal('handled');
       expect(getEditorState.calledOnce).to.be.true();
       expect(setEditorState.calledOnce).to.be.true();
-      expect(insertText.calledOnce).to.be.true();
+      expect(processText.calledOnce).to.be.true();
+      expect(insertText.calledOnce).to.be.false();
       expect(insertWebCards.calledOnce).to.be.true();
     });
   });
