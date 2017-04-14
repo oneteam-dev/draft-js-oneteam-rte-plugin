@@ -1,12 +1,11 @@
 import React from 'react';
-import { Entity } from 'draft-js';
 
 const PDFPreview = (props) => {
-  const { target } = Entity.get(props.entityKey).getData();
+  const { target } = props.contentState.getEntity(props.entityKey).getData();
   const fileProps = JSON.parse(target.replace(/^pdf-preview:/, ''));
   return (
     <div>
-      <dl contentEditable={'false'}>
+      <dl contentEditable={'false'} suppressContentEditableWarning>
         <dt>previewURL</dt><dd>{fileProps.previewURL}</dd>
         <dt>orignalFileURL</dt><dd>{fileProps.orignalFileURL}</dd>
         <dt>orignalFileName</dt><dd>{fileProps.orignalFileName}</dd>

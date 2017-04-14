@@ -1,10 +1,10 @@
 import React from 'react';
-import { Entity } from 'draft-js';
 import unionClassNames from 'union-class-names';
 import { cssToObject } from '../../helpers/dom';
 
 const IFrame = (props) => {
   const {
+    contentState,
     block,
     className,
     theme = {},
@@ -24,7 +24,7 @@ const IFrame = (props) => {
   } = otherProps;
 
   const combinedClassName = unionClassNames(theme.image, className);
-  const attributes = Entity.get(block.getEntityAt(0)).getData();
+  const attributes = contentState.getEntity(block.getEntityAt(0)).getData();
 
   return (
     <iframe

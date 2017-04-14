@@ -24,7 +24,7 @@ describe('convertToAnchor', () => {
         anchorQux: 'qux'
       }
     };
-    expect(subject()).to.equal('<foo><span>span</span> \n  <a href="#test" target="foo:{&quot;myBar&quot;:&quot;1&quot;,&quot;myBaz&quot;:&quot;2&quot;,&quot;myQux&quot;:null,&quot;anchorQux&quot;:&quot;3&quot;}">.</a> \n</foo>');
+    expect(subject()).to.equal('<foo><span>span</span>\n  <a href="#test" target="foo:{&quot;myBar&quot;:&quot;1&quot;,&quot;myBaz&quot;:&quot;2&quot;,&quot;myQux&quot;:null,&quot;anchorQux&quot;:&quot;3&quot;}">.</a>\n</foo>');
   });
   it('converts to anchor attributes', () => {
     attrMap = {
@@ -32,12 +32,12 @@ describe('convertToAnchor', () => {
       myBaz: 'baz',
       myQux: 'qux'
     };
-    expect(subject()).to.equal('<foo><span>span</span> \n  <a href="#test" qux="3" target="foo:{&quot;myBar&quot;:&quot;1&quot;,&quot;myBaz&quot;:&quot;2&quot;,&quot;myQux&quot;:null}">.</a> \n</foo>');
+    expect(subject()).to.equal('<foo><span>span</span>\n  <a href="#test" qux="3" target="foo:{&quot;myBar&quot;:&quot;1&quot;,&quot;myBaz&quot;:&quot;2&quot;,&quot;myQux&quot;:null}">.</a>\n</foo>');
   });
   it('not converts', () => {
     const body = getSafeBodyFromHTML('<foo bar="1" baz="2"><span>span</span></foo>');
     expect(pretty(convertToAnchor(body.firstChild, 'foo', {}).outerHTML)).to.equal(
-      '<foo bar="1" baz="2"><span>span</span> </foo>'
+      '<foo bar="1" baz="2"><span>span</span></foo>'
     );
   });
 });

@@ -21,7 +21,7 @@ describe('atomicBlockRenderer', () => {
   describe('WEB_CARD callbacks', () => {
     before(() => {
       const e = createEntityStub('WEB_CARD', {});
-      EntityStub = sinon.stub(Draft.Entity, 'get', () => e);
+      EntityStub = sinon.stub(Draft.Entity, '__get').callsFake(() => e);
       atomicBlockRenderer.__Rewire__('mergeEntityData', () => 'mergeEntityData');
       atomicBlockRenderer.__Rewire__('removeBlock', () => 'removeBlock');
     });
@@ -46,7 +46,7 @@ describe('atomicBlockRenderer', () => {
   describe('FILE_PLACEHOLDER callbacks', () => {
     before(() => {
       const e = createEntityStub('FILE_PLACEHOLDER', {});
-      EntityStub = sinon.stub(Draft.Entity, 'get', () => e);
+      EntityStub = sinon.stub(Draft.Entity, '__get').callsFake(() => e);
       atomicBlockRenderer.__Rewire__('removeBlock', () => 'removeBlock');
       atomicBlockRenderer.__Rewire__('mergeEntityData', () => 'mergeEntityData');
       atomicBlockRenderer.__Rewire__('replaceToAtomicBlock', () => 'replaceToAtomicBlock');
@@ -78,7 +78,7 @@ describe('atomicBlockRenderer', () => {
     describe('returns atomic block', () => {
       beforeEach(() => {
         const e = createEntityStub(type, {});
-        EntityStub = sinon.stub(Draft.Entity, 'get', () => e);
+        EntityStub = sinon.stub(Draft.Entity, '__get').callsFake(() => e);
       });
       afterEach(() => {
         EntityStub.restore();
@@ -98,7 +98,7 @@ describe('atomicBlockRenderer', () => {
   describe('null', () => {
     beforeEach(() => {
       const e = createEntityStub('null', {});
-      EntityStub = sinon.stub(Draft.Entity, 'get', () => e);
+      EntityStub = sinon.stub(Draft.Entity, '__get').callsFake(() => e);
     });
     afterEach(() => {
       EntityStub.restore();
@@ -113,7 +113,7 @@ describe('atomicBlockRenderer', () => {
   describe('customAtomicBlockRendererFn', () => {
     beforeEach(() => {
       const e = createEntityStub('custom', {});
-      EntityStub = sinon.stub(Draft.Entity, 'get', () => e);
+      EntityStub = sinon.stub(Draft.Entity, '__get').callsFake(() => e);
     });
     afterEach(() => {
       EntityStub.restore();

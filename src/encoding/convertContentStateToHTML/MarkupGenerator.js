@@ -1,4 +1,5 @@
-import { ContentState, ContentBlock, Entity } from 'draft-js';
+import { ContentState, ContentBlock } from 'draft-js';
+import Entity from 'draft-js/lib/DraftEntity';
 import getEntityRanges, { CharacterMetaList } from 'draft-js-utils/lib/getEntityRanges';
 import urlRegex from 'url-regex';
 import kebabCase from 'lodash/kebabCase';
@@ -179,7 +180,8 @@ export default class MarkupGenerator {
     const entityPieces = getEntityRanges(blockText, charMetaList);
 
     let ret = entityPieces.map(([entityKey, stylePieces]) => {
-      const entity = entityKey ? Entity.get(entityKey) : null;
+      // TODO: update this when DraftEntity removed  entirely
+      const entity = entityKey ? Entity.__get(entityKey) : null;
       const entityType = (entity == null) ? null : entity.getType();
 
       const content = stylePieces.map(([text, style]) => {

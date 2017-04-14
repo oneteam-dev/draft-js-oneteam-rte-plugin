@@ -1,5 +1,5 @@
 import React from 'react';
-import { Entity } from 'draft-js';
+import { ContentState } from 'draft-js';
 import { shallow } from 'enzyme';
 import chai, { expect } from 'chai';
 import chaiEnzyme from 'chai-enzyme';
@@ -10,19 +10,20 @@ chai.use(chaiEnzyme());
 
 describe('<IFrame />', () => {
   it('renders', () => {
-    const entityKey = Entity.create('IFRAME', 'IMMUTABLE', {
+    const contentState = ContentState.createFromText('').createEntity('IFRAME', 'IMMUTABLE', {
       src: 'https://one-team.com',
       width: 400,
       height: 280,
       allowFullScreen: true
     });
+    const entityKey = contentState.getLastCreatedEntityKey();
     const block = {
       getEntityAt() {
         return entityKey;
       }
     };
     expect(
-      shallow(<IFrame block={block} />).html()
+      shallow(<IFrame block={block} contentState={contentState} />).html()
     ).to.equal(
       '<iframe src="https://one-team.com" width="400" height="280" allowfullscreen="" class=""></iframe>'
     );

@@ -1,4 +1,4 @@
-import { Entity } from 'draft-js';
+import Entity from 'draft-js/lib/DraftEntity';
 import { CR } from './constants';
 import { BLOCK_TYPES, ENTITY_TYPES } from '../../constants';
 import { attributesToObject } from '../../helpers/dom';
@@ -16,7 +16,8 @@ const getChunkWithEntity = (
       alt: element.alt,
       'data-original-url': element.parentNode.getAttribute('href'),
     };
-    const entityKey = Entity.create(ENTITY_TYPES.IMAGE, 'IMMUTABLE', data);
+    // TODO: update this when DraftEntity removed  entirely
+    const entityKey = Entity.__create(ENTITY_TYPES.IMAGE, 'IMMUTABLE', data);
     return {
       text: `${CR} ${CR}`,
       inlines: Array(3).fill(inlineStyle),
@@ -37,7 +38,8 @@ const getChunkWithEntity = (
     if (hasImageremoved) {
       data.imageRemoved = hasImageremoved;
     }
-    const entityKey = Entity.create(ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', data);
+    // TODO: update this when DraftEntity removed  entirely
+    const entityKey = Entity.__create(ENTITY_TYPES.WEB_CARD, 'IMMUTABLE', data);
     return {
       text: `${CR} ${CR}`,
       inlines: Array(3).fill(inlineStyle),
@@ -88,7 +90,8 @@ const getChunkWithEntity = (
         };
       }
     }
-    const entityKey = Entity.create('FILE_PLACEHOLDER', 'IMMUTABLE', data);
+    // TODO: update this when DraftEntity removed  entirely
+    const entityKey = Entity.__create('FILE_PLACEHOLDER', 'IMMUTABLE', data);
     return {
       text: `${CR} ${CR}`,
       inlines: Array(3).fill(inlineStyle),
@@ -132,7 +135,8 @@ const getChunkWithEntity = (
       data.size = size;
     }
 
-    const entityKey = Entity.create('PLACEHOLDER', 'IMMUTABLE', data);
+    // TODO: update this when DraftEntity removed  entirely
+    const entityKey = Entity.__create('PLACEHOLDER', 'IMMUTABLE', data);
     return {
       text: `${CR} ${CR}`,
       inlines: Array(3).fill(inlineStyle),
@@ -148,7 +152,8 @@ const getChunkWithEntity = (
   }
 
   if (tagName === 'iframe') {
-    const entityKey = Entity.create(
+    // TODO: update this when DraftEntity removed  entirely
+    const entityKey = Entity.__create(
       ENTITY_TYPES.IFRAME,
       'IMMUTABLE',
       { ...attributesToObject(element) }

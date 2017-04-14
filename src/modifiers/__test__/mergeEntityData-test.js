@@ -1,15 +1,10 @@
 import { expect } from 'chai';
-import Draft from 'draft-js';
 import createEditorState from '../../__test__/helpers/createEditorState';
 
 import mergeEntityData from '../mergeEntityData';
 
 describe('mergeEntityData', () => {
   it('Merge block metadata', () => {
-    const entityKey = Draft.Entity.create('EXAMPLE', 'MUTABLE', {
-      foo: 1,
-      bar: 2
-    });
     const beforeRawContentState = {
       entityMap: {
         0: {
@@ -46,8 +41,13 @@ describe('mergeEntityData', () => {
       hasFocus: true
     };
     const editorState = createEditorState(beforeRawContentState, rawSelectionState);
+    const contentState = editorState.getCurrentContent().createEntity('EXAMPLE', 'MUTABLE', {
+      foo: 1,
+      bar: 2
+    });
+    const entityKey = contentState.getLastCreatedEntityKey();
     mergeEntityData(editorState, entityKey, { foo: 3, baz: 4 });
-    const actual = Draft.Entity.get(entityKey).getData();
+    const actual = contentState.getEntity(entityKey).getData();
     expect(actual).to.deep.equal({ foo: 3, bar: 2, baz: 4 });
   });
 });

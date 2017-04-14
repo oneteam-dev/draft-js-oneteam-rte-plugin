@@ -21,7 +21,8 @@ const atomicBlockRenderer = (
     return null;
   }
 
-  const entity = Entity.get(entityKey);
+  // TODO: update this when DraftEntity removed entirely
+  const entity = Entity.__get(entityKey);
 
   if (isFunction(config.customAtomicBlockRendererFn)) {
     const atomicBlock = config.customAtomicBlockRendererFn(entity, block, pluginFunctions);
