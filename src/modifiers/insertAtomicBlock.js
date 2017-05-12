@@ -1,6 +1,6 @@
 // @flow
 
-import { EditorState, Entity } from 'draft-js';
+import { EditorState } from 'draft-js';
 import AtomicBlockUtils from 'draft-js/lib/AtomicBlockUtils';
 
 /**
@@ -18,7 +18,7 @@ const insertAtomicBlock = (
   data: Object,
   character: ?string = ' '
 ): EditorState => {
-  const entityKey = Entity.create(entityType, mutability, data);
+  const entityKey = editorState.getCurrentContent().createEntity(entityType, mutability, data).getLastCreatedEntityKey();
   return AtomicBlockUtils.insertAtomicBlock(
     editorState,
     entityKey,

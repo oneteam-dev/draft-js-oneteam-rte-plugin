@@ -9,7 +9,8 @@
 
 /* eslint-disable no-param-reassign */
 
-import { Entity, ContentState, ContentBlock, CharacterMetadata, genKey } from 'draft-js';
+import { ContentState, ContentBlock, CharacterMetadata, genKey } from 'draft-js';
+import Entity from 'draft-js/lib/DraftEntity';
 import getSafeBodyFromHTML from 'draft-js/lib/getSafeBodyFromHTML';
 import sanitizeDraftText from 'draft-js/lib/sanitizeDraftText';
 import { List, OrderedSet, Map } from 'immutable';
@@ -152,13 +153,15 @@ const genFragment = (
       // href = new URI(child.href).toString();
       href = child.href;
       if (child.hasAttribute('download')) {
-        entityId = Entity.create(ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
+        // TODO: update this when DraftEntity removed  entirely
+        entityId = Entity.__create(ENTITY_TYPES.DOWNLOAD_LINK, 'MUTABLE', {
           url: href,
           name: child.getAttribute('data-name'),
           size: child.getAttribute('data-size')
         });
       } else {
-        entityId = Entity.create(ENTITY_TYPES.LINK, 'MUTABLE', { url: href });
+        // TODO: update this when DraftEntity removed  entirely
+        entityId = Entity.__create(ENTITY_TYPES.LINK, 'MUTABLE', { url: href });
       }
     } else {
       entityId = undefined;

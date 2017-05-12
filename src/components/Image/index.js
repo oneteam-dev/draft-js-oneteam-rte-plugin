@@ -1,10 +1,10 @@
 import React from 'react';
-import { Entity } from 'draft-js';
 import unionClassNames from 'union-class-names';
 
 const Image = (props) => {
   const {
     block,
+    contentState,
     className,
     theme = {},
     ...otherProps
@@ -23,7 +23,7 @@ const Image = (props) => {
   } = otherProps;
 
   const combinedClassName = unionClassNames(theme.image, className);
-  const { src, alt, title } = Entity.get(block.getEntityAt(0)).getData();
+  const { src, alt, title } = contentState.getEntity(block.getEntityAt(0)).getData();
   return (
     <img
       {...elementProps}

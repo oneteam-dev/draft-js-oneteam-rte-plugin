@@ -17,7 +17,7 @@ describe('handleReturnWithCommand', () => {
 
   it('return false with noop', () => {
     onReturnWithCommand = sinon.spy();
-    KeyBindingUtilStub = sinon.stub(Draft.KeyBindingUtil, 'hasCommandModifier', () => false);
+    KeyBindingUtilStub = sinon.stub(Draft.KeyBindingUtil, 'hasCommandModifier').callsFake(() => false);
     handleReturnWithCommand.__Rewire__('onReturnWithCommand', onReturnWithCommand);
     event = {};
 
@@ -27,7 +27,7 @@ describe('handleReturnWithCommand', () => {
   });
   it('return true with new editorState', () => {
     onReturnWithCommand = sinon.spy();
-    KeyBindingUtilStub = sinon.stub(Draft.KeyBindingUtil, 'hasCommandModifier', () => true);
+    KeyBindingUtilStub = sinon.stub(Draft.KeyBindingUtil, 'hasCommandModifier').callsFake(() => true);
     handleReturnWithCommand.__Rewire__('onReturnWithCommand', onReturnWithCommand);
     event = {};
 

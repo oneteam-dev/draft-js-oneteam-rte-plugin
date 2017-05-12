@@ -1,6 +1,6 @@
 // @flow
 
-import { EditorState, Entity } from 'draft-js';
+import { EditorState } from 'draft-js';
 import toggleEntity from './toggleEntity';
 import { LINK } from '../constants';
 
@@ -11,7 +11,9 @@ const toggleLink = (editorState: EditorState, url?: ?string = null): EditorState
     return editorState;
   }
 
-  const entityKey = url ? Entity.create(LINK, 'MUTABLE', { url }) : null;
+  const entityKey = url ?
+    editorState.getCurrentContent().createEntity(LINK, 'MUTABLE', { url }).getLastCreatedEntityKey() :
+    null;
   return toggleEntity(editorState, entityKey);
 };
 
