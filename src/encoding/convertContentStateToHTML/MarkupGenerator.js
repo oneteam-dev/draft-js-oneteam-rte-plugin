@@ -184,55 +184,60 @@ export default class MarkupGenerator {
       const entity = entityKey ? Entity.__get(entityKey) : null;
       const entityType = (entity == null) ? null : entity.getType();
 
-      const content = stylePieces.map(([text, style]) => {
-        // let encodedText = blockType === BLOCK_TYPES.CODE_BLOCK ? text : encodeContent(text);
-        let encodedText = encodeContent(text);
-        const originalEncodedText = encodedText;
+      let content;
+      if (this.options.entityRenderers && this.options.entityRenderers[entityType]) {
+        content = this.options.entityRenderers[entityType](entity, stylePieces);
+      } else {
+        content = stylePieces.map(([text, style]) => {
+          // let encodedText = blockType === BLOCK_TYPES.CODE_BLOCK ? text : encodeContent(text);
+          let encodedText = encodeContent(text);
+          const originalEncodedText = encodedText;
 
-        const oldStyles = style.toArray()
-          .filter((s) => Object.keys(OLD_INLINE_STYLES).indexOf(s) !== -1);
-        if (oldStyles.length > 0) {
-          const styles = oldStyles.reduce((result, s) => (
-            Object.keys(OLD_INLINE_STYLES[s]).reduce((r, prop) => {
-              r[prop] = OLD_INLINE_STYLES[s][prop]; // eslint-disable-line no-param-reassign
-              return r;
-            }, result)
-          ), {});
+          const oldStyles = style.toArray()
+            .filter((s) => Object.keys(OLD_INLINE_STYLES).indexOf(s) !== -1);
+          if (oldStyles.length > 0) {
+            const styles = oldStyles.reduce((result, s) => (
+              Object.keys(OLD_INLINE_STYLES[s]).reduce((r, prop) => {
+                r[prop] = OLD_INLINE_STYLES[s][prop]; // eslint-disable-line no-param-reassign
+                return r;
+              }, result)
+            ), {});
 
-          const stringifyStyles = Object.keys(styles).map((prop) => {
-            const val = prop === 'fontSize' ? `${styles[prop]}px` : styles[prop];
-            return `${kebabCase(prop)}: ${val};`;
-          }).join(' ');
-          encodedText = `<span style="${stringifyStyles}">${encodedText}</span>`;
-        }
+            const stringifyStyles = Object.keys(styles).map((prop) => {
+              const val = prop === 'fontSize' ? `${styles[prop]}px` : styles[prop];
+              return `${kebabCase(prop)}: ${val};`;
+            }).join(' ');
+            encodedText = `<span style="${stringifyStyles}">${encodedText}</span>`;
+          }
 
-        // These are reverse alphabetical by tag name.
-        if (style.has(CODE)) {
-          // If our block type is CODE then we are already wrapping the whole
-          // block in a `<code>` so don't wrap inline code elements.
-          encodedText = (blockType === BLOCK_TYPES.CODE_BLOCK) ? encodedText : `<code>${encodedText}</code>`;
-        }
-        if (style.has(BOLD)) {
-          encodedText = `<strong>${encodedText}</strong>`;
-        }
-        if (style.has(UNDERLINE)) {
-          encodedText = `<ins>${encodedText}</ins>`;
-        }
-        if (style.has(ITALIC)) {
-          encodedText = `<em>${encodedText}</em>`;
-        }
-        if (style.has(STRIKETHROUGH)) {
-          encodedText = `<del>${encodedText}</del>`;
-        }
-        if (entityType != null && entityType === ENTITY_TYPES.LINK) {
-          const attrs = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? dataToAttr(entityType, entity) : null;
-          const strAttrs = stringifyAttributes(attrs);
-          encodedText = `<a${strAttrs} target="_blank">${encodedText}</a>`;
-        } else if (urlRegex().test(originalEncodedText)) {
-          encodedText = encodedText.replace(urlRegex(), (match) => `<a href="${match}" target="_blank">${match}</a>`);
-        }
-        return encodedText;
-      }).join('');
+          // These are reverse alphabetical by tag name.
+          if (style.has(CODE)) {
+            // If our block type is CODE then we are already wrapping the whole
+            // block in a `<code>` so don't wrap inline code elements.
+            encodedText = (blockType === BLOCK_TYPES.CODE_BLOCK) ? encodedText : `<code>${encodedText}</code>`;
+          }
+          if (style.has(BOLD)) {
+            encodedText = `<strong>${encodedText}</strong>`;
+          }
+          if (style.has(UNDERLINE)) {
+            encodedText = `<ins>${encodedText}</ins>`;
+          }
+          if (style.has(ITALIC)) {
+            encodedText = `<em>${encodedText}</em>`;
+          }
+          if (style.has(STRIKETHROUGH)) {
+            encodedText = `<del>${encodedText}</del>`;
+          }
+          if (entityType != null && entityType === ENTITY_TYPES.LINK) {
+            const attrs = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? dataToAttr(entityType, entity) : null;
+            const strAttrs = stringifyAttributes(attrs);
+            encodedText = `<a${strAttrs} target="_blank">${encodedText}</a>`;
+          } else if (urlRegex().test(originalEncodedText)) {
+            encodedText = encodedText.replace(urlRegex(), (match) => `<a href="${match}" target="_blank">${match}</a>`);
+          }
+          return encodedText;
+        }).join('');
+      }
 
       if (entityType != null && entityType === ENTITY_TYPES.DOWNLOAD_LINK) {
         const attrs = ENTITY_ATTR_MAP.hasOwnProperty(entityType) ? dataToAttr(entityType, entity) : null;
