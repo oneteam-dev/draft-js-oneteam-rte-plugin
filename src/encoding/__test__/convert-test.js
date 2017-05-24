@@ -1,10 +1,11 @@
 import { expect } from 'chai';
-import { EditorState } from 'draft-js';
+import { EditorState, Entity } from 'draft-js';
 import almostAll from './fixtures/all-html';
 import { pdfPreview00, pdfPreview01 } from './fixtures/pdf-preview-html';
 import { list } from './fixtures/list-html';
 import { pre } from './fixtures/pre-html';
 import { code } from './fixtures/code-block-html';
+import { mention } from './fixtures/mention-html';
 import { filePlaceholder00, filePlaceholder01, filePlaceholder02 } from './fixtures/file-placeholder-html';
 
 import convertToContent from '../convertHTMLToContentState';
@@ -73,6 +74,39 @@ describe('Interconvert', () => {
     const actual = convertToHTML(editorState.getCurrentContent());
     expect(actual).to.equal(
       '<pre data-language="ruby">def func()\n  &quot;Hello&quot;\nend</pre><pre data-language="html">&lt;div&gt;text&lt;/div&gt;</pre>'
+    );
+  });
+
+  it('Mention', () => {
+    const content = convertToContent(mention, void 0, {
+      textToEntity(text) {
+        const ret = [];
+        const mentionRegex = /\@([a-z][0-9a-z-_]+)/g;
+        let result;
+        const mentions = [{ name: 'Shingo Sato', userName: 'sugarshin' }, { name: 'Atsushi Nagase', userName: 'ngs' }];
+        while((result = mentionRegex.exec(text))) {
+          const [match, userName] = result;
+          const { index: offset } = result;
+          const mention = mentions.find((m) => m.userName === userName);
+          const entityKey = Entity.__create('mention', 'IMMUTABLE', { mention });
+          ret.push({
+            entity: entityKey,
+            offset,
+            length: match.length,
+            result: mention.name
+          });
+        }
+        return ret;
+      }
+    });
+    const editorState = EditorState.createWithContent(content);
+    const actual = convertToHTML(editorState.getCurrentContent(), {
+      entityRenderers: {
+        mention: (entity) => `@${entity.getData().mention.userName}`
+      }
+    });
+    expect(actual).to.equal(
+      mention
     );
   });
 });

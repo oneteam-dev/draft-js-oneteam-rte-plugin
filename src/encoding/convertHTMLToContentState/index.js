@@ -68,12 +68,7 @@ const genFragment = (
     const entities = Array(text.length).fill(inEntity);
 
     let offsetChange = 0;
-    const textEntities = options.textToEntity(text).sort((r1, r2) => {
-      if (r1.offset === r2.offset) {
-        return r2.length - r1.length;
-      }
-      return r1.offset - r2.offset;
-    });
+    const textEntities = options.textToEntity(text).sort((r1, r2) => r1.offset - r2.offset);
     textEntities.forEach(({ entity, offset, length, result }) => {
       const adjustedOffset = offset + offsetChange;
 
