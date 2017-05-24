@@ -3,7 +3,8 @@
   "plugins": ["transform-flow-strip-types"],
   "env": {
     "development": {
-      "presets": ["react-hmre"]
+      "presets": ["react", ["es2015", { "modules": false }], "es2016", "stage-0"],
+      "plugins": ["transform-flow-strip-types", "react-hot-loader/babel"]
     },
     "test": {
       "plugins": ["rewire"]
