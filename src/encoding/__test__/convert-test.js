@@ -5,7 +5,7 @@ import { pdfPreview00, pdfPreview01 } from './fixtures/pdf-preview-html';
 import { list } from './fixtures/list-html';
 import { pre } from './fixtures/pre-html';
 import { code } from './fixtures/code-block-html';
-import { mention } from './fixtures/mention-html';
+import { mention as mentionHTML } from './fixtures/mention-html';
 import { filePlaceholder00, filePlaceholder01, filePlaceholder02 } from './fixtures/file-placeholder-html';
 
 import convertToContent from '../convertHTMLToContentState';
@@ -78,13 +78,13 @@ describe('Interconvert', () => {
   });
 
   it('Mention', () => {
-    const content = convertToContent(mention, void 0, {
+    const content = convertToContent(mentionHTML, undefined, {
       textToEntity(text) {
         const ret = [];
-        const mentionRegex = /\@([a-z][0-9a-z-_]+)/g;
+        const mentionRegex = /@([a-z][0-9a-z-_]+)/g;
         let result;
         const mentions = [{ name: 'Shingo Sato', userName: 'sugarshin' }, { name: 'Atsushi Nagase', userName: 'ngs' }];
-        while((result = mentionRegex.exec(text))) {
+        while ((result = mentionRegex.exec(text))) { // eslint-disable-line no-cond-assign
           const [match, userName] = result;
           const { index: offset } = result;
           const mention = mentions.find((m) => m.userName === userName);
@@ -106,7 +106,7 @@ describe('Interconvert', () => {
       }
     });
     expect(actual).to.equal(
-      mention
+      mentionHTML
     );
   });
 });

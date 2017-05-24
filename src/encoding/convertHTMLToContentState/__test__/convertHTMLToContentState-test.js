@@ -72,11 +72,11 @@ describe('convertToContent', () => {
     expect(actual).to.equal(null);
   });
   it('with `textToEntity` option', () => {
-    const createHashtagEntity = text => {
+    const createHashtagEntity = (text) => {
       const ret = [];
-      const mentionRegex = /\#(\w+)/g;
+      const mentionRegex = /#(\w+)/g;
       let result;
-      while((result = mentionRegex.exec(text))) {
+      while ((result = mentionRegex.exec(text))) { // eslint-disable-line no-cond-assign
         const [match, name] = result;
         const { index: offset } = result;
         const entityKey = Entity.__create('HASHTAG', 'IMMUTABLE', {
@@ -113,7 +113,7 @@ describe('convertToContent', () => {
         mutability: 'IMMUTABLE',
         type: 'HASHTAG'
       },
-    })
+    });
     expect(content.blocks.length).to.equal(1);
     expect(content.blocks[0].data).to.deep.equal({});
     expect(content.blocks[0].depth).to.equal(0);
