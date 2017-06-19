@@ -1,6 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
+import 'normalize.css/normalize.css';
+import './base.css';
 import App from './containers/App';
 
 // Import your routes so that you can pass them to the <Router /> component
