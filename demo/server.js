@@ -12,6 +12,7 @@ app.use('/css', express.static('demo/publicTemplate/css'));
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,
+  stats: { colors: true },
 }));
 
 app.use(require('webpack-hot-middleware')(compiler));

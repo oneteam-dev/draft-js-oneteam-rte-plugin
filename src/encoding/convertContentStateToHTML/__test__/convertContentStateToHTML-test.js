@@ -106,3 +106,63 @@ describe('convertContentStateToHTML', () => {
     expect(actual).to.equal('<div><br/></div><figure>&nbsp;</figure><div><br/></div>');
   });
 });
+
+describe('convertContentStateToHTML with options', () => {
+  it('entityRenderers', () => {
+    const rawContentState = {
+      entityMap: {
+        0: {
+          data: {
+            mention: {
+              name: 'Shingo Sato',
+              userName: 'sugarshin'
+            }
+          },
+          mutability: 'IMMUTABLE',
+          type: 'mention'
+        }
+      },
+      blocks: [
+        {
+          key: 'item1',
+          text: '',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {}
+        },
+        {
+          key: 'item2',
+          text: 'Shingo Sato',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [{
+            key: 0,
+            length: 11,
+            offset: 0
+          }],
+          data: {}
+        },
+        {
+          key: 'item3',
+          text: '',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {}
+        }
+      ]
+    };
+    const contentState = Draft.convertFromRaw(rawContentState);
+
+    const actual = converToHTML(contentState, {
+      entityRenderers: {
+        mention: (entity) => `<span>@${entity.getData().mention.userName}</span>`
+      }
+    });
+    expect(actual).to.equal('<div><br/></div><div><span>@sugarshin</span></div><div><br/></div>');
+  });
+});

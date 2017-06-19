@@ -12,24 +12,30 @@ var ExtractTextPlugin = require('extract-text-webpack-plugin');
 // https://github.com/glenjamin/webpack-hot-middleware/issues/37
 var DEV_PORT = process.env.DEV_PORT || 3002;
 var DEV_HOST = `//localhost:${DEV_PORT}/`;
-var HMR_HOST = `${DEV_HOST}__webpack_hmr`;
 
 module.exports = Object.assign(webpackBaseConfig, {
   devtool: 'inline-source-map',
 
   entry: {
     app: [
-      `webpack-hot-middleware/client?path=${HMR_HOST}`,
+      'webpack/hot/dev-server',
+      'webpack-hot-middleware/client',
       'babel-polyfill',
+      'react-hot-loader/patch',
       path.join(__dirname, 'client', 'index.js'),
     ],
   },
 
   module: {
-    loaders: webpackBaseConfig.module.loaders.concat(
+    rules: webpackBaseConfig.module.rules.concat(
       {
         test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
-        loader: 'url-loader?limit=10000&mimetype=application/font-woff'
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/font-woff' }
+          }
+        ]
       },
       {
         test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
@@ -37,7 +43,7 @@ module.exports = Object.assign(webpackBaseConfig, {
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader'],
         include: /node_modules/
       }
     )
@@ -50,8 +56,8 @@ module.exports = Object.assign(webpackBaseConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin('css/bundle.css', { disable: true }),
+    new ExtractTextPlugin({ filename: 'css/bundle.css', disable: true }),
     new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoErrorsPlugin(),
+    new webpack.NoEmitOnErrorsPlugin(),
   ],
 });

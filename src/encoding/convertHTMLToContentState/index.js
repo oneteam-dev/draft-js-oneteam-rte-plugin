@@ -43,7 +43,8 @@ const genFragment = (
   inBlock: ?string,
   blockTags: Array<string>,
   depth: number,
-  inEntity?: string
+  inEntity?: string,
+  options: Object
 ): Chunk => {
   let nodeName = node.nodeName.toLowerCase();
   let newBlock = false;
@@ -64,10 +65,32 @@ const genFragment = (
     // save the last block so we can use it later
     lastBlock = nodeName;
 
+    const entities = Array(text.length).fill(inEntity);
+
+    let offsetChange = 0;
+    const textEntities = options.textToEntity(text).sort((r1, r2) => r1.offset - r2.offset);
+    textEntities.forEach(({ entity, offset, length, result }) => {
+      const adjustedOffset = offset + offsetChange;
+
+      if (result === null || result === undefined) {
+        result = text.substr(adjustedOffset, length);
+      }
+
+      const textArray = text.split('');
+      textArray.splice.bind(textArray, adjustedOffset, length).apply(textArray, result.split(''));
+      text = textArray.join('');
+
+      entities.splice
+        .bind(entities, adjustedOffset, length)
+        .apply(entities, Array(result.length).fill(entity));
+
+      offsetChange += result.length - length;
+    });
+
     return {
       text,
       inlines: Array(text.length).fill(inlineStyle),
-      entities: Array(text.length).fill(inEntity),
+      entities,
       blocks: [],
     };
   }
@@ -174,7 +197,8 @@ const genFragment = (
       inBlock,
       blockTags,
       depth,
-      entityId || inEntity
+      entityId || inEntity,
+      options
     );
 
     chunk = joinChunks(chunk, newChunk);
@@ -204,7 +228,7 @@ const genFragment = (
   return chunk;
 };
 
-const getChunkForHTML = (html: string, DOMBuilder: Function): ?Chunk => {
+const getChunkForHTML = (html: string, DOMBuilder: Function, options: Object): ?Chunk => {
   html = normalizeHTML(html);
 
   const safeBody = DOMBuilder(html);
@@ -221,7 +245,7 @@ const getChunkForHTML = (html: string, DOMBuilder: Function): ?Chunk => {
   // Start with -1 block depth to offset the fact that we are passing in a fake
   // UL block to start with.
   let chunk =
-    genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1);
+    genFragment(safeBody, OrderedSet(), 'ul', null, workingBlocks, -1, null, options);
 
   // join with previous block to prevent weirdness on paste
   if (chunk.text.indexOf(CR) === 0) {
@@ -258,13 +282,14 @@ const getChunkForHTML = (html: string, DOMBuilder: Function): ?Chunk => {
 
 const convertHTMLToContentState = (
   html: string,
-  DOMBuilder: Function = getSafeBodyFromHTML
+  DOMBuilder: Function = getSafeBodyFromHTML,
+  options: Object = { textToEntity: () => [] }
 ): ContentState => {
   // Be ABSOLUTELY SURE that the dom builder you pass hare won't execute
   // arbitrary code in whatever environment you're running this in. For an
   // example of how we try to do this in-browser, see getSafeBodyFromHTML.
 
-  const chunk = getChunkForHTML(html, DOMBuilder);
+  const chunk = getChunkForHTML(html, DOMBuilder, options);
   if (chunk == null) {
     return null;
   }
