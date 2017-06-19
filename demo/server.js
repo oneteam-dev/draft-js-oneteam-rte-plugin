@@ -7,8 +7,6 @@ import html from './index.html';
 const app = express();
 const compiler = webpack(config);
 
-app.use('/css', express.static('demo/publicTemplate/css'));
-
 app.use(require('webpack-dev-middleware')(compiler, {
   noInfo: true,
   publicPath: config.output.publicPath,

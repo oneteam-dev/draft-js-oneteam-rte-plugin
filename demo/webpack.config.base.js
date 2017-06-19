@@ -27,6 +27,19 @@ module.exports = {
         ],
       },
       {
+        test: /\.woff(2)?(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10000, mimetype: 'application/font-woff' }
+          }
+        ]
+      },
+      {
+        test: /\.(ttf|eot|svg)(\?v=[0-9]\.[0-9]\.[0-9])?$/,
+        loader: 'file-loader'
+      },
+      {
         test: /\.css$/,
         loader: ExtractTextPlugin.extract({
           fallback: 'style-loader',
@@ -38,7 +51,7 @@ module.exports = {
             { loader: 'postcss-loader' }
           ]
         }),
-        include: path.join(__dirname, 'client', 'components'),
+        include: path.join(__dirname, 'client'),
       }
     ],
   }

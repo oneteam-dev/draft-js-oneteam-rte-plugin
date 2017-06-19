@@ -22,7 +22,7 @@ module.exports = Object.assign(webpackBaseConfig, {
 
   plugins: [
     new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
-    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
         NODE_ENV: JSON.stringify('production'),
@@ -34,4 +34,18 @@ module.exports = Object.assign(webpackBaseConfig, {
     }),
     new StaticSiteGeneratorPlugin('main', ['/'], {}),
   ],
+  module: {
+    rules: webpackBaseConfig.module.rules.concat(
+      {
+        test: /\.css$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            { loader: 'css-loader' },
+          ],
+        }),
+        include: /node_modules/
+      }
+    )
+  },
 });

@@ -7,6 +7,7 @@ import Draft, {
   EditorState
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
+import 'draft-js-checkable-list-item/lib/CheckableListItem.css';
 import Toolbar from './components/Toolbar';
 import WebCard from './components/WebCard';
 import FilePlaceholder from './components/FilePlaceholder';
