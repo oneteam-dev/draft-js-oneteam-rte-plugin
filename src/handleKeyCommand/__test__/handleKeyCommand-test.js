@@ -1,18 +1,22 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import createEditorState from '../../__test__/helpers/createEditorState';
 import handleKeyCommand from '..';
 
 chai.use(sinonChai);
 
 describe('handleKeyCommand', () => {
   let RichUtilsHandleKeyCommand;
-  let getEditorState;
   let setEditorState;
+  let editorState;
   const createGetCurrentBlock = (depth, length, key) => () => ({
     getDepth: () => depth,
     getLength: () => length,
     getKey: () => key
+  });
+  beforeEach(() => {
+    editorState = createEditorState();
   });
   afterEach(() => {
     handleKeyCommand.__ResetDependency__('getCurrentBlock');
@@ -25,59 +29,63 @@ describe('handleKeyCommand', () => {
     expect(actual).to.be.a('function');
   });
   it('not-handled', () => {
-    getEditorState = sinon.spy();
     setEditorState = sinon.spy();
-    const pluginFunctions = { getEditorState };
-    const actual = handleKeyCommand({})('somecommand', pluginFunctions);
+    const pluginFunctions = { setEditorState };
+    const actual = handleKeyCommand({})('somecommand', editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.false();
     expect(actual).to.equal('not-handled');
   });
   it('handled for list block', () => {
-    getEditorState = sinon.spy();
     setEditorState = sinon.spy();
     const getCurrentBlock = createGetCurrentBlock(0, 0, 'item0');
     const isListBlock = sinon.stub().returns(true);
     const removeBlockStyle = sinon.stub().returns('newstate');
-    const pluginFunctions = { getEditorState, setEditorState };
+    const pluginFunctions = { setEditorState };
 
     handleKeyCommand.__Rewire__('getCurrentBlock', getCurrentBlock);
     handleKeyCommand.__Rewire__('isListBlock', isListBlock);
     handleKeyCommand.__Rewire__('removeBlockStyle', removeBlockStyle);
 
-    const actual = handleKeyCommand({})('backspace', pluginFunctions);
+    const actual = handleKeyCommand({})('backspace', editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.true();
     expect(removeBlockStyle.calledOnce).to.be.true();
     expect(actual).to.equal('handled');
   });
   it('handled for first line', () => {
-    const KEY = 'item0';
-    const editorState = {
-      getCurrentContent: () => ({ getFirstBlock: () => ({ getKey: () => KEY }) })
-    };
-    getEditorState = sinon.stub().returns(editorState);
+    editorState = createEditorState({
+      entityMap: {},
+      blocks: [{
+        key: 'item0',
+        text: '',
+        type: 'unstyled',
+        depth: 0,
+        inlineStyleRanges: [],
+        entityRanges: [],
+        data: {}
+      }]
+    });
     setEditorState = sinon.spy();
     const getCurrentBlock = createGetCurrentBlock(0, 0, 'item0');
     const isListBlock = sinon.stub().returns(false);
     const removeBlockStyle = sinon.stub().returns('newstate');
-    const pluginFunctions = { getEditorState, setEditorState };
+    const pluginFunctions = { setEditorState };
 
     handleKeyCommand.__Rewire__('getCurrentBlock', getCurrentBlock);
     handleKeyCommand.__Rewire__('isListBlock', isListBlock);
     handleKeyCommand.__Rewire__('removeBlockStyle', removeBlockStyle);
 
-    const actual = handleKeyCommand({})('backspace', pluginFunctions);
+    const actual = handleKeyCommand({})('backspace', editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.true();
     expect(removeBlockStyle.calledOnce).to.be.true();
     expect(actual).to.equal('handled');
   });
   it('handled for default', () => {
     setEditorState = sinon.spy();
-    getEditorState = sinon.stub().returns('state0');
     RichUtilsHandleKeyCommand = sinon.stub().returns('state1');
     const RichUtils = { handleKeyCommand: RichUtilsHandleKeyCommand };
-    const pluginFunctions = { getEditorState, setEditorState };
+    const pluginFunctions = { setEditorState };
     handleKeyCommand.__Rewire__('RichUtils', RichUtils);
-    const actual = handleKeyCommand({})('somecommand', pluginFunctions);
+    const actual = handleKeyCommand({})('somecommand', editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.true();
     expect(actual).to.equal('handled');
   });
