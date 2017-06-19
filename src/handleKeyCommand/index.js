@@ -2,6 +2,7 @@
 
 import { RichUtils } from 'draft-js';
 
+import type { EditorState } from 'draft-js';
 import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
 
 import removeBlockStyle from '../modifiers/removeBlockStyle';
@@ -13,9 +14,7 @@ import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createHandleKeyCommand = (config: Config): Function => (
-  (command: string, { getEditorState, setEditorState }: PluginFunctions): DraftHandleValue => {
-    const editorState = getEditorState();
-
+  (command: string, editorState: EditorState, { setEditorState }: PluginFunctions): DraftHandleValue => {
     if (command === 'backspace') {
       const currentBlock = getCurrentBlock(editorState);
       const isEmpty = currentBlock.getLength() === 0;
