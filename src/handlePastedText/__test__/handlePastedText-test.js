@@ -7,7 +7,6 @@ import createEditorState from '../../__test__/helpers/createEditorState';
 chai.use(sinonChai);
 
 describe('handlePastedText', () => {
-  let getEditorState;
   let setEditorState;
   let processText;
   let insertText;
@@ -56,10 +55,8 @@ describe('handlePastedText', () => {
         hasFocus: true
       }
     );
-    getEditorState = sinon.stub().returns(editorState);
-    const pluginFunctions = { getEditorState };
-    const actual = handlePastedText()(null, null, pluginFunctions);
-    expect(getEditorState.calledOnce).to.be.false();
+    const pluginFunctions = { setEditorState };
+    const actual = handlePastedText()(null, null, editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.false();
     expect(actual).to.equal('not-handled');
   });
@@ -86,10 +83,8 @@ describe('handlePastedText', () => {
         hasFocus: true
       }
     );
-    getEditorState = sinon.stub().returns(editorState);
-    const actual = handlePastedText()('Not including url', null, { getEditorState, setEditorState });
+    const actual = handlePastedText()('Not including url', null, editorState, { setEditorState });
     expect(actual).to.equal('not-handled');
-    expect(getEditorState.calledOnce).to.be.true();
     expect(setEditorState.calledOnce).to.be.false();
     expect(insertText.calledOnce).to.be.false();
     expect(insertWebCards.calledOnce).to.be.false();
@@ -118,10 +113,8 @@ describe('handlePastedText', () => {
           hasFocus: true
         }
       );
-      getEditorState = sinon.stub().returns(editorState);
-      const actual = handlePastedText()(text, null, { getEditorState, setEditorState });
+      const actual = handlePastedText()(text, null, editorState, { setEditorState });
       expect(actual).to.equal('handled');
-      expect(getEditorState.calledOnce).to.be.true();
       expect(setEditorState.calledOnce).to.be.true();
       expect(processText.calledOnce).to.be.true();
       expect(insertText.calledOnce).to.be.false();
@@ -151,10 +144,8 @@ describe('handlePastedText', () => {
         hasFocus: true
       }
     );
-    getEditorState = sinon.stub().returns(editorState);
-    const actual = handlePastedText()('https://one-team.com', null, { getEditorState, setEditorState });
+    const actual = handlePastedText()('https://one-team.com', null, editorState, { setEditorState });
     expect(actual).to.equal('handled');
-    expect(getEditorState.calledOnce).to.be.true();
     expect(setEditorState.calledOnce).to.be.true();
     expect(insertText.calledOnce).to.be.true();
   });
