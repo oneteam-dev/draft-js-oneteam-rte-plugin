@@ -1,5 +1,6 @@
 // @flow
 
+import type { EditorState } from 'draft-js';
 import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
 
 import handleReturnWithCommand from './handleReturnWithCommand';
@@ -12,9 +13,7 @@ import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createHandleReturn = (config: Config): Function => (
-  (event: SyntheticKeyboardEvent, pluginFunctions: PluginFunctions): DraftHandleValue => {
-    const editorState = pluginFunctions.getEditorState();
-
+  (event: SyntheticKeyboardEvent, editorState: EditorState, pluginFunctions: PluginFunctions): DraftHandleValue => {
     if (handleReturnWithCommand(event, config)) {
       return 'handled';
     }

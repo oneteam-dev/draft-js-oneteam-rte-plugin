@@ -3,6 +3,7 @@
 import { RichUtils } from 'draft-js';
 import urlRegex from 'url-regex';
 
+import type { EditorState } from 'draft-js';
 import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
 
 import processText from './processText';
@@ -13,12 +14,11 @@ import { CODE_BLOCK } from '../constants';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createHandlePastedText = (/* config: Object */): Function => (
-  (text: ?string, html: ?string, { getEditorState, setEditorState }: PluginFunctions): DraftHandleValue => {
+  (text: ?string, html: ?string, editorState: EditorState, { setEditorState }: PluginFunctions): DraftHandleValue => {
     if (!text) {
       return 'not-handled';
     }
 
-    const editorState = getEditorState();
     const currentBlockType = RichUtils.getCurrentBlockType(editorState);
     const urls = text.match(urlRegex());
 
