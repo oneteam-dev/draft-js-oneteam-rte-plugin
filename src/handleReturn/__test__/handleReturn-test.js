@@ -1,12 +1,13 @@
 import chai, { expect } from 'chai';
 import sinon from 'sinon';
 import sinonChai from 'sinon-chai';
+import createEditorState from '../../__test__/helpers/createEditorState';
 import handleReturn from '..';
 
 chai.use(sinonChai);
 
 describe('handleReturn', () => {
-  let getEditorState;
+  let editorState;
   let handleReturnWithCommand;
   let handleReturnListItem;
   let handleReturnToInsertWebCard;
@@ -20,6 +21,10 @@ describe('handleReturn', () => {
     handleReturnBlockquote
   };
 
+  beforeEach(() => {
+    editorState = createEditorState();
+  });
+
   afterEach(() => {
     Object.keys(handlers).forEach((key) => {
       handleReturn.__ResetDependency__(key);
@@ -27,15 +32,12 @@ describe('handleReturn', () => {
   });
 
   it('return not-handled with noop', () => {
-    getEditorState = sinon.stub().returns('state0');
-
     Object.keys(handlers).forEach((key) => {
       handlers[key] = sinon.stub().returns(false);
       handleReturn.__Rewire__(key, handlers[key]);
     });
 
-    const actual = handleReturn({})({}, { getEditorState });
-    expect(getEditorState.calledOnce).to.be.true();
+    const actual = handleReturn({})({}, editorState, {});
     expect(actual).to.equal('not-handled');
   });
 
@@ -46,11 +48,7 @@ describe('handleReturn', () => {
         handlers[k] = sinon.stub().returns(returns);
         handleReturn.__Rewire__(k, handlers[k]);
       });
-
-      getEditorState = sinon.stub().returns('state0');
-
-      const actual = handleReturn({})({}, { getEditorState });
-      expect(getEditorState.calledOnce).to.be.true();
+      const actual = handleReturn({})({}, editorState, {});
       expect(actual).to.equal('handled');
     });
   });
