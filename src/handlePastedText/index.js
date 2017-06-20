@@ -4,7 +4,7 @@ import { RichUtils } from 'draft-js';
 import urlRegex from 'url-regex';
 
 import type { EditorState } from 'draft-js';
-import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
+import type { DraftHandleValue } from 'draft-js/lib/DraftHandleValue';
 
 import processText from './processText';
 import insertText from '../modifiers/insertText';

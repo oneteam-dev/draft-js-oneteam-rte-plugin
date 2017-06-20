@@ -1,7 +1,7 @@
 // @flow
 
 import type { EditorState } from 'draft-js';
-import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
+import type { DraftHandleValue } from 'draft-js/lib/DraftHandleValue';
 
 import handleReturnWithCommand from './handleReturnWithCommand';
 import handleReturnListItem from './handleReturnListItem';

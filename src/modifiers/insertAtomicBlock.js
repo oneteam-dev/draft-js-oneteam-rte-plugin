@@ -16,7 +16,7 @@ const insertAtomicBlock = (
   entityType: string,
   mutability: string,
   data: Object,
-  character: ?string = ' '
+  character: string = ' '
 ): EditorState => {
   const entityKey = editorState.getCurrentContent().createEntity(entityType, mutability, data).getLastCreatedEntityKey();
   return AtomicBlockUtils.insertAtomicBlock(

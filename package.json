@@ -83,7 +83,7 @@
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.2",
     "file-loader": "^0.11.2",
-    "flow-bin": "~0.32.0",
+    "flow-bin": "^0.42.0",
     "jsdom": "^9.12.0",
     "mocha": "^3.4.2",
     "mocha-junit-reporter": "^1.13.0",
