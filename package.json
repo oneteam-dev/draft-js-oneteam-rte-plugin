@@ -1,6 +1,6 @@
 {
   "name": "draft-js-oneteam-rte-plugin",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A DraftJS plugin for supporting Oneteam specific elements",
   "main": "lib/index.js",
   "files": [
