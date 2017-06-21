@@ -1,8 +1,9 @@
 // @flow
 
+import { insertAtomicBlock } from 'draft-js-modifiers';
+
 import type { EditorState } from 'draft-js';
 
-import insertAtomicBlock from './insertAtomicBlock';
 import { WEB_CARD } from '../constants';
 
 const insertWebCards = (editorState: EditorState, urls: Array<string>): EditorState => (

@@ -1,10 +1,10 @@
 // @flow
 
+import { adjustBlockDepth, removeBlockStyle } from 'draft-js-modifiers';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 import type { EditorState } from 'draft-js';
-import removeBlockStyle from '../modifiers/removeBlockStyle';
-import adjustBlockDepth from '../modifiers/adjustBlockDepth';
+
 import isListBlock from '../utils/isListBlock';
-import getCurrentBlock from '../utils/getCurrentBlock';
 
 import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';

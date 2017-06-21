@@ -1,13 +1,13 @@
 // @flow
 
 import { RichUtils } from 'draft-js';
+import { insertText } from 'draft-js-modifiers';
 import urlRegex from 'url-regex';
 
 import type { EditorState } from 'draft-js';
 import type { DraftHandleValue } from 'draft-js/lib/DraftHandleValue';
 
 import processText from './processText';
-import insertText from '../modifiers/insertText';
 import insertWebCards from '../modifiers/insertWebCards';
 import { CODE_BLOCK } from '../constants';
 

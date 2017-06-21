@@ -2,9 +2,9 @@
 
 import trimEnd from 'lodash/trimEnd';
 import { EditorState, RichUtils } from 'draft-js';
+import { insertEmptyBlock } from 'draft-js-modifiers';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 import applyBlockData from '../modifiers/applyBlockData';
-import insertEmptyBlock from '../modifiers/insertEmptyBlock';
-import getCurrentBlock from '../utils/getCurrentBlock';
 import { BLOCKQUOTE } from '../constants';
 
 import type { Config } from '../types/Config';

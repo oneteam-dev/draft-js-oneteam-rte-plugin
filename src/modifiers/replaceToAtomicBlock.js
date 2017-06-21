@@ -1,8 +1,8 @@
 // @flow
 
 import { EditorState, ContentBlock } from 'draft-js';
+import { insertAtomicBlock } from 'draft-js-modifiers';
 import removeBlock from './removeBlock';
-import insertAtomicBlock from './insertAtomicBlock';
 
 const replaceToAtomicBlock = (
   editorState: EditorState,

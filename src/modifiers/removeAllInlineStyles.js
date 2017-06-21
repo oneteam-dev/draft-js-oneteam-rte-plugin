@@ -1,7 +1,7 @@
 // @flow
 
 import { EditorState, ContentState, Modifier } from 'draft-js';
-import getCurrentBlock from '../utils/getCurrentBlock';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 import { INLINE_STYLES } from '../constants';
 
 const removeAllInlineStyles = (editorState: EditorState, otherInlineStyles: { [id: string]: string } = {}): EditorState => {
