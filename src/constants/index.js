@@ -104,6 +104,7 @@ export const ORDERED_INLINE_STYLES = [
 export const MAX_LIST_DEPTH = 4;
 
 // It was used in previous editor
+// TODO: naming
 export const OLD_COLORS = [
   'rgb(0, 0, 0)', 'rgb(230, 0, 0)', 'rgb(255, 153, 0)', 'rgb(255, 255, 0)',
   'rgb(0, 138, 0)', 'rgb(0, 102, 204)', 'rgb(153, 51, 255)', 'rgb(255, 255, 255)',
