@@ -1,9 +1,9 @@
 // @flow
 
 import { EditorState, Modifier } from 'draft-js';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 import urlRegex from 'url-regex';
 import insertWebCards from '../modifiers/insertWebCards';
-import getCurrentBlock from '../utils/getCurrentBlock';
 import { CODE_BLOCK } from '../constants';
 
 const insertWebCardsIfNeeded = (editorState: EditorState): EditorState => {

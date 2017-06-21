@@ -1,7 +1,7 @@
 // @flow
 
 import { EditorState } from 'draft-js';
-import insertAtomicBlock from './insertAtomicBlock';
+import { insertAtomicBlock } from 'draft-js-modifiers';
 import { IMAGE } from '../constants';
 
 const insertImageAtomicBlock = (editorState: EditorState, { url, alt, title }: Object): EditorState => (

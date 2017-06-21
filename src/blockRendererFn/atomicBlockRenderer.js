@@ -1,10 +1,10 @@
 import { Entity, ContentBlock } from 'draft-js';
+import { mergeEntityData } from 'draft-js-modifiers';
 import isFunction from 'lodash/isFunction';
 import Image from '../components/Image';
 import DownloadLink from '../components/DownloadLink';
 import IFrame from '../components/IFrame';
 import removeBlock from '../modifiers/removeBlock';
-import mergeEntityData from '../modifiers/mergeEntityData';
 import replaceToAtomicBlock from '../modifiers/replaceToAtomicBlock';
 import { IMAGE, DOWNLOAD_LINK, IFRAME, WEB_CARD, PLACEHOLDER, FILE_PLACEHOLDER } from '../constants';
 

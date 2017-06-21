@@ -1,7 +1,7 @@
 // @flow
 
 import { EditorState } from 'draft-js';
-import toggleEntity from './toggleEntity';
+import { toggleEntity } from 'draft-js-modifiers';
 import { LINK } from '../constants';
 
 const toggleLink = (editorState: EditorState, url?: ?string = null): EditorState => {

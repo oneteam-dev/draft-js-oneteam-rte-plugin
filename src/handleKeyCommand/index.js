@@ -1,13 +1,12 @@
 // @flow
 
 import { RichUtils } from 'draft-js';
+import { adjustBlockDepth, removeBlockStyle } from 'draft-js-modifiers';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 
 import type { EditorState } from 'draft-js';
-import type DraftHandleValue from 'draft-js/lib/DraftHandleValue';
+import type { DraftHandleValue } from 'draft-js/lib/DraftHandleValue';
 
-import removeBlockStyle from '../modifiers/removeBlockStyle';
-import adjustBlockDepth from '../modifiers/adjustBlockDepth';
-import getCurrentBlock from '../utils/getCurrentBlock';
 import isListBlock from '../utils/isListBlock';
 
 import type { Config } from '../types/Config';

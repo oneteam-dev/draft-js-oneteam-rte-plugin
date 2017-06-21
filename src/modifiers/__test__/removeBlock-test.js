@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import Draft from 'draft-js';
-import getCurrentBlock from '../../utils/getCurrentBlock';
+import getCurrentBlock from 'draft-js-modifiers/utils/getCurrentBlock';
 import createEditorState from '../../__test__/helpers/createEditorState';
 
 import removeBlock from '../removeBlock';

@@ -1,7 +1,7 @@
 // @flow
 
 import { EditorState } from 'draft-js';
-import insertAtomicBlock from './insertAtomicBlock';
+import { insertAtomicBlock } from 'draft-js-modifiers';
 import * as domHelper from '../helpers/dom';
 import { IFRAME } from '../constants';
 
