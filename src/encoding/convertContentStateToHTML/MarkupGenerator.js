@@ -12,6 +12,7 @@ import getTag from './helpers/getTag';
 import getWrapperTag from './helpers/getWrapperTag';
 import canHaveDepth from './helpers/canHaveDepth';
 import encodeContent, { BREAK } from './helpers/encodeContent';
+import autoLink from './helpers/autoLink';
 import { stringifyAttributes } from '../../helpers/dom';
 
 import type { Options } from './types';
@@ -233,7 +234,7 @@ export default class MarkupGenerator {
             const strAttrs = stringifyAttributes(attrs);
             encodedText = `<a${strAttrs} target="_blank">${encodedText}</a>`;
           } else if (urlRegex().test(originalEncodedText)) {
-            encodedText = encodedText.replace(urlRegex(), (match) => `<a href="${match}" target="_blank">${match}</a>`);
+            encodedText = autoLink(encodedText);
           }
           return encodedText;
         }).join('');
