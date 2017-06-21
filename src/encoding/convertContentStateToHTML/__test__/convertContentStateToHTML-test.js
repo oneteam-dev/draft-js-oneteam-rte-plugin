@@ -4,6 +4,32 @@ import Draft from 'draft-js';
 import converToHTML from '..';
 
 describe('convertContentStateToHTML', () => {
+  it('has link URL in inline styled', () => {
+    const rawContentState = {
+      entityMap: {},
+      blocks: [
+        {
+          key: 'item2',
+          text: 'All Bold https://one-team.com',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [
+            {
+              length: 29,
+              offset: 0,
+              style: 'BOLD'
+            }
+          ],
+          entityRanges: [],
+          data: {}
+        }
+      ]
+    };
+    const contentState = Draft.convertFromRaw(rawContentState);
+
+    const actual = converToHTML(contentState);
+    expect(actual).to.equal('<div><strong>All Bold <a href="https://one-team.com" target="_blank">https://one-team.com</a></strong></div>');
+  });
   it('Dose Not render IMAGE', () => {
     const rawContentState = {
       entityMap: {
