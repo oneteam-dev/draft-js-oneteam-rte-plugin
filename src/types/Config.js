@@ -11,5 +11,5 @@ export type Config = {
   customAtomicBlockRendererFn?: ?() => ?Object,
   onReturnWithCommand?: ?() => void,
   onPastedFiles?: ?() => void,
-  atomicBlockRenderMap: ?AtomicBlockRenderMap
+  atomicBlockRenderMap: AtomicBlockRenderMap
 }

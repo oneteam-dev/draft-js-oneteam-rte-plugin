@@ -112,8 +112,8 @@ const genFragment = (
   // BR tags
   if (nodeName === 'br') {
     if (
-        lastLastBlock === 'br' &&
-        (!inBlock || getBlockTypeForTag(inBlock, lastList, node) === BLOCK_TYPES.UNSTYLED)
+      lastLastBlock === 'br' &&
+      (!inBlock || getBlockTypeForTag(inBlock, lastList, node) === BLOCK_TYPES.UNSTYLED)
     ) {
       return getBlockDividerChunk(BLOCK_TYPES.UNSTYLED, depth);
     }
