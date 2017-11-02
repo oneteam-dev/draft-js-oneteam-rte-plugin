@@ -7,6 +7,7 @@ import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const handleReturnToInsertWebCard = (editorState: EditorState, config: Config, { setEditorState }: PluginFunctions): boolean => {
+  if (config.disableWebCardCreation) return false;
   const newEditorState = insertWebCardsIfNeeded(editorState);
   if (editorState !== newEditorState) {
     setEditorState(newEditorState);

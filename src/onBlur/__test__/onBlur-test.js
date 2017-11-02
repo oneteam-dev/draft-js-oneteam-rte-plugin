@@ -46,4 +46,18 @@ describe('onBlur', () => {
       done();
     }, 20);
   });
+  it('not-handled with `disableWebCardCreation`', function fn(done) {
+    this.timeout(50);
+    getEditorState = sinon.stub().returns('state0');
+    setEditorState = sinon.spy();
+    insertWebCardsIfNeeded = sinon.stub().returns('state1');
+    onBlur.__Rewire__('insertWebCardsIfNeeded', insertWebCardsIfNeeded);
+    onBlur({ disableWebCardCreation: true })(event, { getEditorState, setEditorState });
+    setTimeout(() => {
+      expect(getEditorState.calledOnce).to.be.false();
+      expect(insertWebCardsIfNeeded.calledOnce).to.be.false();
+      expect(setEditorState.called).to.be.false();
+      done();
+    }, 20);
+  });
 });

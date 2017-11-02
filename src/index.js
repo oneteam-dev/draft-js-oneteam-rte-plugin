@@ -20,7 +20,8 @@ import type { Config } from './types/Config';
 
 const defaultConfig = {
   maxDepth: 4,
-  atomicBlockRenderMap: {}
+  atomicBlockRenderMap: {},
+  disableWebCardCreation: false
 };
 
 const createOneteamRTEPlugin = (options: Config): Object => {

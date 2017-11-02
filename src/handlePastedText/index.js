@@ -11,9 +11,10 @@ import processText from './processText';
 import insertWebCards from '../modifiers/insertWebCards';
 import { CODE_BLOCK } from '../constants';
 
+import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
-const createHandlePastedText = (/* config: Object */): Function => (
+const createHandlePastedText = (config: Config): Function => (
   (text: ?string, html: ?string, editorState: EditorState, { setEditorState }: PluginFunctions): DraftHandleValue => {
     if (!text) {
       return 'not-handled';
@@ -27,7 +28,7 @@ const createHandlePastedText = (/* config: Object */): Function => (
         insertText(editorState, text)
       );
       return 'handled';
-    } else if (urls && currentBlockType !== CODE_BLOCK) {
+    } else if (urls && currentBlockType !== CODE_BLOCK && !config.disableWebCardCreation) {
       setEditorState(
         insertWebCards(
           processText(editorState, text),

@@ -25,6 +25,17 @@ describe('handleReturnToInsertWebCard', () => {
     expect(setEditorState.called).to.be.false();
     expect(actual).to.be.false();
   });
+  it('return false with `disableWebCardCreation`', () => {
+    insertWebCardsIfNeeded = sinon.stub().returns('state0');
+    editorState = 'state1';
+    setEditorState = sinon.spy();
+
+    handleReturnToInsertWebCard.__Rewire__('insertWebCardsIfNeeded', insertWebCardsIfNeeded);
+
+    const actual = handleReturnToInsertWebCard(editorState, { disableWebCardCreation: true }, { setEditorState });
+    expect(setEditorState.called).to.be.false();
+    expect(actual).to.be.false();
+  });
   it('return true with new editorState', () => {
     insertWebCardsIfNeeded = sinon.stub().returns('newstate');
     editorState = 'state0';
