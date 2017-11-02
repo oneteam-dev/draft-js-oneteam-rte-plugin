@@ -41,7 +41,6 @@ const content = rtePlugin.convertHTML(`<h1>draft-js-oneteam-rte-plugin</h1><figu
 const initialEditorState = EditorState.createWithContent(content);
 
 export default class DemoEditor extends Component {
-
   state = {
     editorState: initialEditorState
   };

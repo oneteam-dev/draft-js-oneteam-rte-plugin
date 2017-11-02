@@ -1,8 +1,6 @@
 import type { DraftInlineStyle } from 'draft-js/lib/DraftInlineStyle';
 
-import {
- INLINE_STYLES, OLD_COLORS, OLD_INLINE_STYLES_SIZE, OLD_INLINE_STYLES
-} from '../../constants';
+import { INLINE_STYLES, OLD_COLORS, OLD_INLINE_STYLES_SIZE, OLD_INLINE_STYLES } from '../../constants';
 
 const inlineTags = {
   b: INLINE_STYLES.BOLD,

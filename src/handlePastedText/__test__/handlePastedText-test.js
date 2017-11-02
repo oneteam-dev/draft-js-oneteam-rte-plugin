@@ -14,7 +14,7 @@ describe('handlePastedText', () => {
   let editorState;
 
   it('is function', () => {
-    const actual = handlePastedText();
+    const actual = handlePastedText({});
     expect(actual).to.be.a('function');
   });
   beforeEach(() => {
@@ -56,7 +56,7 @@ describe('handlePastedText', () => {
       }
     );
     const pluginFunctions = { setEditorState };
-    const actual = handlePastedText()(null, null, editorState, pluginFunctions);
+    const actual = handlePastedText({})(null, null, editorState, pluginFunctions);
     expect(setEditorState.calledOnce).to.be.false();
     expect(actual).to.equal('not-handled');
   });
@@ -83,7 +83,7 @@ describe('handlePastedText', () => {
         hasFocus: true
       }
     );
-    const actual = handlePastedText()('Not including url', null, editorState, { setEditorState });
+    const actual = handlePastedText({})('Not including url', null, editorState, { setEditorState });
     expect(actual).to.equal('not-handled');
     expect(setEditorState.calledOnce).to.be.false();
     expect(insertText.calledOnce).to.be.false();
@@ -113,7 +113,7 @@ describe('handlePastedText', () => {
           hasFocus: true
         }
       );
-      const actual = handlePastedText()(text, null, editorState, { setEditorState });
+      const actual = handlePastedText({})(text, null, editorState, { setEditorState });
       expect(actual).to.equal('handled');
       expect(setEditorState.calledOnce).to.be.true();
       expect(processText.calledOnce).to.be.true();
@@ -144,9 +144,37 @@ describe('handlePastedText', () => {
         hasFocus: true
       }
     );
-    const actual = handlePastedText()('https://one-team.com', null, editorState, { setEditorState });
+    const actual = handlePastedText({})('https://one-team.com', null, editorState, { setEditorState });
     expect(actual).to.equal('handled');
     expect(setEditorState.calledOnce).to.be.true();
     expect(insertText.calledOnce).to.be.true();
+  });
+  it('not-handled with `disableWebCardCreation`', () => {
+    editorState = createEditorState(
+      {
+        entityMap: {},
+        blocks: [{
+          key: 'item1',
+          text: 'Text',
+          type: 'unstyled',
+          depth: 0,
+          inlineStyleRanges: [],
+          entityRanges: [],
+          data: {}
+        }]
+      },
+      {
+        anchorKey: 'item1',
+        anchorOffset: 0,
+        focusKey: 'item1',
+        focusOffset: 0,
+        isBackward: false,
+        hasFocus: true
+      }
+    );
+    const actual = handlePastedText({ disableWebCardCreation: true })('https://one-team.com', null, editorState, { setEditorState });
+    expect(actual).to.equal('not-handled');
+    expect(setEditorState.calledOnce).to.be.false();
+    expect(insertWebCards.calledOnce).to.be.false();
   });
 });

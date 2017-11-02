@@ -1,7 +1,10 @@
 import chai from 'chai';
+import chaiEnzyme from 'chai-enzyme';
 import dirtyChai from 'dirty-chai';
 import hook from 'css-modules-require-hook';
 import { jsdom } from 'jsdom';
+import Enzyme from 'enzyme';
+import Adapter from 'enzyme-adapter-react-15';
 
 process.env.NODE_ENV = 'test';
 
@@ -23,9 +26,7 @@ Object.keys(document.defaultView).concat(
   }
 });
 
-// chaiEnzyme needs to be initialised here, so that canUseDOM is set
-// to true when react-dom initialises (which chai-enzyme depends upon)
-const chaiEnzyme = require('chai-enzyme');
+Enzyme.configure({ adapter: new Adapter() });
 
 chai.use(dirtyChai);
 chai.use(chaiEnzyme());
