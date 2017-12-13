@@ -16,12 +16,12 @@ describe('markdownToHTML', () => {
   - [ ] list3`;
     expect(subject()).to.equal(`<ul>
   <li class="task-list-item">
-    <input type="checkbox" /> list0</li>
+    <input type="checkbox" disabled/> list0</li>
   <li class="task-list-item">
     <input type="checkbox" checked/> list1
     <ul>
       <li class="task-list-item">
-        <input type="checkbox" /> list3</li>
+        <input type="checkbox" disabled/> list3</li>
     </ul>
   </li>
 </ul>`);
