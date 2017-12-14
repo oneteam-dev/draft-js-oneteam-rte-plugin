@@ -18,7 +18,7 @@ describe('markdownToHTML', () => {
   <li class="task-list-item">
     <input type="checkbox" disabled/> list0</li>
   <li class="task-list-item">
-    <input type="checkbox" checked/> list1
+    <input type="checkbox" checked disabled/> list1
     <ul>
       <li class="task-list-item">
         <input type="checkbox" disabled/> list3</li>
