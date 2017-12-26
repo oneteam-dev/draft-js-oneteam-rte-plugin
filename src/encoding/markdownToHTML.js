@@ -8,8 +8,8 @@ renderer.listitem = (text) => {
   /* eslint-disable no-useless-escape */
   if (/^\s*\[[x ]\]\s*/.test(text)) {
     text = text // eslint-disable-line no-param-reassign
-      .replace(/^\s*\[ \]\s*/, '<input type="checkbox" /> ')
-      .replace(/^\s*\[x\]\s*/, '<input type="checkbox" checked /> ');
+      .replace(/^\s*\[ \]\s*/, '<input type="checkbox" disabled /> ')
+      .replace(/^\s*\[x\]\s*/, '<input type="checkbox" checked disabled /> ');
     return `<li class="task-list-item">${text}</li>\n`;
   }
   /* eslint-enable no-useless-escape */
