@@ -2,7 +2,9 @@ import { EditorState, CharacterMetadata, Modifier, BlockMapBuilder } from 'draft
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import getEntityKeyForSelection from 'draft-js/lib/getEntityKeyForSelection';
 
-const processText = (editorState: EditorState, text: string): EditorState => {
+import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';
+
+const processText = (editorState: EditorState, text: string, type: DraftBlockType): EditorState => {
   const character = CharacterMetadata.create({
     style: editorState.getCurrentInlineStyle(),
     entity: getEntityKeyForSelection(
@@ -13,7 +15,8 @@ const processText = (editorState: EditorState, text: string): EditorState => {
 
   const textFragment = DraftPasteProcessor.processText(
     text.split('\n'),
-    character
+    character,
+    type
   );
 
   const textMap = BlockMapBuilder.createFromArray(textFragment);

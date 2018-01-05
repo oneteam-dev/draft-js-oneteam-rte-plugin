@@ -18,6 +18,7 @@ const removeAllInlineStyles = (editorState: EditorState, otherInlineStyles: { [i
     const blockMap = content.getBlockMap().merge({ [key]: updatedBlock });
     newContent = content.merge({ blockMap });
   } else {
+    // $FlowFixMe:
     newContent = Object.keys({ ...INLINE_STYLES, ...otherInlineStyles }).reduce(
       (contentState: ContentState, style: string): ContentState => (
         Modifier.removeInlineStyle(

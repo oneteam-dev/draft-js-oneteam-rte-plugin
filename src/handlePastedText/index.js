@@ -31,7 +31,7 @@ const createHandlePastedText = (config: Config): Function => (
     } else if (urls && currentBlockType !== CODE_BLOCK && !config.disableWebCardCreation) {
       setEditorState(
         insertWebCards(
-          processText(editorState, text),
+          processText(editorState, text, currentBlockType),
           urls
         )
       );
