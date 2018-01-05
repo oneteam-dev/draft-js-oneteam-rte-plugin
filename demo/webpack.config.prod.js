@@ -21,7 +21,7 @@ module.exports = Object.assign(webpackBaseConfig, {
   },
 
   plugins: [
-    new ExtractTextPlugin({ filename: '[name].css', allChunks: true }),
+    new ExtractTextPlugin({ filename: 'app.css', allChunks: true }),
     new webpack.optimize.OccurrenceOrderPlugin(),
     new webpack.DefinePlugin({
       'process.env': {
@@ -32,7 +32,11 @@ module.exports = Object.assign(webpackBaseConfig, {
       screw_ie8: true,
       compressor: { warnings: false },
     }),
-    new StaticSiteGeneratorPlugin('main', ['/'], {}),
+    new StaticSiteGeneratorPlugin({
+      entry: 'main',
+      paths: ['/'],
+      locals: { css: 'app.css' }
+    }),
   ],
   module: {
     rules: webpackBaseConfig.module.rules.concat(
