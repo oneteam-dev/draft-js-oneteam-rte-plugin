@@ -13,7 +13,7 @@ import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createHandleReturn = (config: Config): Function => (
-  (event: SyntheticKeyboardEvent, editorState: EditorState, pluginFunctions: PluginFunctions): DraftHandleValue => {
+  (event: SyntheticKeyboardEvent<*>, editorState: EditorState, pluginFunctions: PluginFunctions): DraftHandleValue => {
     if (handleReturnWithCommand(event, config)) {
       return 'handled';
     }

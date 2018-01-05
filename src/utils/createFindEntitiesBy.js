@@ -7,7 +7,7 @@ const createFindEntitiesBy = (entityType: string): Function => (
     block.findEntityRanges(
       (character: CharacterMetadata): boolean => {
         const entityKey = character.getEntity();
-        return entityKey !== null && content.getEntity(entityKey).getType() === entityType;
+        return entityKey != null && content.getEntity(entityKey).getType() === entityType;
       },
       callback
     );

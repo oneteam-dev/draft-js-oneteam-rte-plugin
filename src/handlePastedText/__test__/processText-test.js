@@ -29,7 +29,7 @@ describe('processText', () => {
   let afterRawContentState;
   it('insert text with new block', () => {
     const editorState = createEditorState(beforeRawContentState, rawSelectionState);
-    const newEditorState = processText(editorState, 'text1');
+    const newEditorState = processText(editorState, 'text1', 'unstyled');
     afterRawContentState = {
       entityMap: {},
       blocks: [{
@@ -52,7 +52,7 @@ describe('processText', () => {
   });
   it('insert multiline text with new blocks', () => {
     const editorState = createEditorState(beforeRawContentState, rawSelectionState);
-    const newEditorState = processText(editorState, 'text1\ntext2\ntext3');
+    const newEditorState = processText(editorState, 'text1\ntext2\ntext3', 'unstyled');
     afterRawContentState = {
       entityMap: {},
       blocks: [
@@ -87,6 +87,7 @@ describe('processText', () => {
     };
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
+    console.log('ex expected ---------------------------------------------', expected);
     expect(
       omitBlocksKeyFromContentState(
         expected

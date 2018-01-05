@@ -1,8 +1,8 @@
 // @flow
 
-import { EditorState, ContentBlock } from 'draft-js';
+import { EditorState } from 'draft-js';
 
-const applyBlockData = (editorState: EditorState, blockKey: string, blockData: ContentBlock): EditorState => {
+const applyBlockData = (editorState: EditorState, blockKey: string, blockData: Object): EditorState => {
   const content = editorState.getCurrentContent();
   const blockMap = content.getBlockMap();
   const newBlockMap = blockMap.map((b) => (

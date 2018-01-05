@@ -7,7 +7,7 @@ import type { Config } from '../types/Config';
 // import type { PluginFunctions } from '../types/PluginFunctions';
 
 const createBlockStyleFn = (config: Config): Function => (
-  (block: ContentBlock/* , pluginFunctions: PluginFunctions*/): ?string => {
+  (block: ContentBlock/* , pluginFunctions: PluginFunctions */): ?string => {
     const type = block.getType();
 
     if (config.blockStyleMap && config.blockStyleMap[type]) {

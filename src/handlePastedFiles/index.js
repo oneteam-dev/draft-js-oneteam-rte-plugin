@@ -1,7 +1,6 @@
 // @flow
 
-import type { DraftHandleValue } from 'draft-js';
-
+import type { DraftHandleValue } from 'draft-js/lib/DraftHandleValue';
 import type { Config } from '../types/Config';
 // import type { PluginFunctions } from '../types/PluginFunctions';
 

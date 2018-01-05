@@ -11,7 +11,7 @@ import type { Config } from '../types/Config';
 import type { PluginFunctions } from '../types/PluginFunctions';
 
 const handleReturnBlockquote = (
-  event: SyntheticKeyboardEvent,
+  event: SyntheticKeyboardEvent<*>,
   editorState: EditorState,
   config: Config,
   { setEditorState }: PluginFunctions

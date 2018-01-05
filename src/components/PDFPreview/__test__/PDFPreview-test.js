@@ -36,7 +36,7 @@ describe('<PDFPreview />', () => {
     <dd>792</dd>
     <dt>size</dt>
     <dd>244897</dd>
-  </dl><span style="opacity:0;">test</span></div>`
+  </dl><span style="opacity:0">test</span></div>`
     );
   });
 });
