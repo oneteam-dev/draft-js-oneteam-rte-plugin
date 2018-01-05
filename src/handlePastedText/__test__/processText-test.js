@@ -87,7 +87,6 @@ describe('processText', () => {
     };
     expect(newEditorState).not.to.equal(editorState);
     const expected = Draft.convertToRaw(newEditorState.getCurrentContent());
-    console.log('ex expected ---------------------------------------------', expected);
     expect(
       omitBlocksKeyFromContentState(
         expected
