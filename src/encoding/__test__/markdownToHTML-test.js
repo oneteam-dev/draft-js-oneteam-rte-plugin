@@ -30,6 +30,10 @@ describe('markdownToHTML', () => {
     markdown = '```\ncode\n```';
     expect(subject()).to.equal('<pre>code</pre>');
   });
+  it('pre with language', () => {
+    markdown = '```javascript\n(async () => {})();\n```';
+    expect(subject()).to.equal('<pre data-language="javascript">(async () =&gt; {})();</pre>');
+  });
   it('ul', () => {
     markdown = '- UL\n- Ul';
     expect(subject()).to.equal(`<ul>
@@ -75,6 +79,13 @@ const f = a =&gt; a</pre>`
     expect(subject()).to.equal(`<blockquote>
   <h1 id="header-1">header 1</h1>
 </blockquote>`
+    );
+  });
+  it('paragraph', () => {
+    markdown = 'first line paragraph paragraph paragraph\n\nsecond line paragraph';
+    expect(subject()).to.equal(
+      `<div>first line paragraph paragraph paragraph</div>
+<div>second line paragraph</div>`
     );
   });
 });

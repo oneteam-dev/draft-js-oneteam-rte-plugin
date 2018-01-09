@@ -126,7 +126,7 @@
     "immutable": "~3.7.4",
     "invariant": "^2.2.2",
     "lodash": "^4.17.4",
-    "marked": "~0.3.6",
+    "marked": "~0.3.12",
     "nullthrows": "^1.0.0",
     "to-markdown": "^3.1.0",
     "union-class-names": "^1.0.0",
