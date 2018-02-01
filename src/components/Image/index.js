@@ -19,6 +19,7 @@ const Image = (props) => {
     offsetKey, // eslint-disable-line no-unused-vars
     selection, // eslint-disable-line no-unused-vars
     tree, // eslint-disable-line no-unused-vars
+    blockStyleFn, // eslint-disable-line no-unused-vars
     ...elementProps
   } = otherProps;
 
