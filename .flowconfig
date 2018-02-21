@@ -3,6 +3,8 @@
 .*/node_modules/eslint-plugin-jsx-a11y/src/.*
 .*/node_modules/eslint-plugin-jsx-a11y/flow/.*
 .*/node_modules/draft-js/lib/DraftEditor.react.js.flow
+.*/node_modules/draft-js/lib/ContentBlock.js.flow
+.*/node_modules/draft-js/lib/ContentBlockNode.js.flow
 
 [include]
 

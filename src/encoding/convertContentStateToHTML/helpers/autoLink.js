@@ -1,3 +1,5 @@
+// @flow
+
 import Autolinker from 'autolinker';
 
 const autolinker = new Autolinker({

@@ -1,3 +1,5 @@
+// @flow
+
 import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';
 import type { DraftInlineStyle } from 'draft-js/lib/DraftInlineStyle';
 

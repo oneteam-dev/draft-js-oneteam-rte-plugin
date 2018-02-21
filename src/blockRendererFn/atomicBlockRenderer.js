@@ -1,6 +1,7 @@
+// @flow
+
 import { Entity, ContentBlock } from 'draft-js';
 import { mergeEntityData } from 'draft-js-modifiers';
-import isFunction from 'lodash/isFunction';
 import Image from '../components/Image';
 import DownloadLink from '../components/DownloadLink';
 import IFrame from '../components/IFrame';
@@ -24,7 +25,7 @@ const atomicBlockRenderer = (
   // TODO: update this when DraftEntity removed entirely
   const entity = Entity.__get(entityKey);
 
-  if (isFunction(config.customAtomicBlockRendererFn)) {
+  if (typeof config.customAtomicBlockRendererFn === 'function') {
     const atomicBlock = config.customAtomicBlockRendererFn(entity, block, pluginFunctions);
     if (atomicBlock) {
       return atomicBlock;
@@ -73,7 +74,7 @@ const atomicBlockRenderer = (
         props: {
           ...entity.getData(),
           onComplete: (data) => {
-            if (isFunction(config.onCompleteFileUpload)) {
+            if (typeof config.onCompleteFileUpload === 'function') {
               config.onCompleteFileUpload(data, block);
             }
 

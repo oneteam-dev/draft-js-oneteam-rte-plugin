@@ -1,3 +1,5 @@
+// @flow
+
 import { BLOCK_TYPES } from '../../../constants';
 
 const canHaveDepth = (blockType: string): boolean => {

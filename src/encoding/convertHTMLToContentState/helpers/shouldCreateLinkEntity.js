@@ -1,3 +1,5 @@
+// @flow
+
 import invariant from 'invariant';
 
 const hasValidLinkText = (link: Element): boolean => {
@@ -14,7 +16,7 @@ const isTextAndHrefSameValue = (element: Element): boolean => (
 );
 
 const shouldCreateLinkEntity = (tagName: string, element: Element): boolean => (
-  tagName === 'a' && element.href && hasValidLinkText(element) && !isTextAndHrefSameValue(element)
+  tagName === 'a' && !!element.href && hasValidLinkText(element) && !isTextAndHrefSameValue(element)
 );
 
 export default shouldCreateLinkEntity;

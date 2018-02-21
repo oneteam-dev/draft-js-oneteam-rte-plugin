@@ -1,3 +1,5 @@
+// @flow
+
 import { CR, LF, SPACE } from './constants';
 
 import type { Chunk } from './types';

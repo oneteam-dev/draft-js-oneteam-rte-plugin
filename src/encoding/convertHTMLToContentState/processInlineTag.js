@@ -1,3 +1,5 @@
+// @flow
+
 import type { DraftInlineStyle } from 'draft-js/lib/DraftInlineStyle';
 
 import { INLINE_STYLES, OLD_COLORS, OLD_INLINE_STYLES_SIZE, OLD_INLINE_STYLES } from '../../constants';
@@ -15,13 +17,29 @@ const inlineTags = {
   ins: 'UNDERLINE'
 };
 
-const hasFontSize = (element: Element): boolean => (
+const hasFontSize = (element: HTMLElement): boolean => (
   Object.keys(OLD_INLINE_STYLES_SIZE).some((label) => (
     OLD_INLINE_STYLES_SIZE[label].fontSize === parseInt(element.style.fontSize, 10)
   ))
 );
 
-const hasColor = (element: Element, prop: string): boolean => (
+const hasColor = (element: HTMLElement, prop: string): boolean => (
+  // Error ┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈┈ src/encoding/convertHTMLToContentState/processInlineTag.js:27:54
+  //
+  // Cannot get element.style[prop] because string [1] is incompatible with number [2].
+  //
+  //      src/encoding/convertHTMLToContentState/processInlineTag.js
+  //       24│ );
+  //       25│
+  //  [1]  26│ const hasColor = (element: HTMLElement, prop: string): boolean => (
+  //       27│   OLD_COLORS.some((color) => color === element.style[prop])
+  //       28│ );
+  //       29│
+  //       30│ const processInlineTag = (
+  //
+  //      /private/tmp/flow/flowlib_1b2c8386/cssom.js
+  //  [2] 373│   [index: number]: string;
+  // $FlowFixMe
   OLD_COLORS.some((color) => color === element.style[prop])
 );
 

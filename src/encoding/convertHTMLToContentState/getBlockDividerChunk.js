@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/no-types-missing-file-annotation */
+
 import { OrderedSet, Map } from 'immutable';
 
 import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';

@@ -1,3 +1,5 @@
+// @flow
+
 import { BASE_BLOCK_TAG_NAMES } from '../constants';
 
 /**

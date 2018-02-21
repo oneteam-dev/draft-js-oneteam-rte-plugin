@@ -1,3 +1,5 @@
+// @flow
+
 import { OrderedSet } from 'immutable';
 import { LF } from './constants';
 

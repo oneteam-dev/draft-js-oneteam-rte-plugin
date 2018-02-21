@@ -1,3 +1,5 @@
+// @flow
+
 import htmlclean from 'htmlclean';
 import merge from 'lodash/merge';
 import he from 'he';

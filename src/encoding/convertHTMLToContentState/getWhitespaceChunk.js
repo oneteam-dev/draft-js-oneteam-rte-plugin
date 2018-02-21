@@ -1,3 +1,5 @@
+// @flow
+
 import { OrderedSet } from 'immutable';
 
 import type { Chunk } from './types';

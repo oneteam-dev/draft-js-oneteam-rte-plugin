@@ -1,3 +1,5 @@
+// @flow
+
 import { EditorState, CharacterMetadata, Modifier, BlockMapBuilder } from 'draft-js';
 import DraftPasteProcessor from 'draft-js/lib/DraftPasteProcessor';
 import getEntityKeyForSelection from 'draft-js/lib/getEntityKeyForSelection';

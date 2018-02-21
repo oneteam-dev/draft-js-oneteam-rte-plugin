@@ -9,8 +9,8 @@ const replaceToAtomicBlock = (
   block: ContentBlock,
   entityType: string,
   mutability: string,
-  data: Object,
-  character: string
+  data?: Object,
+  character?: string
 ): EditorState => (
   insertAtomicBlock(
     removeBlock(editorState, block),

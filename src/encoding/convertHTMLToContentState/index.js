@@ -7,7 +7,7 @@
  * of patent rights can be found in the PATENTS file in the same directory.
  */
 
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-param-reassign, flowtype/no-types-missing-file-annotation */
 
 import { ContentState, ContentBlock, CharacterMetadata, genKey } from 'draft-js';
 import Entity from 'draft-js/lib/DraftEntity';
