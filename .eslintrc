@@ -27,7 +27,6 @@
     "no-restricted-syntax": 0,
     "no-plusplus": 0,
     "no-prototype-builtins": 0,
-    "arrow-body-style": 0,
-    "flowtype/no-types-missing-file-annotation": 1
+    "arrow-body-style": 0
   }
 }

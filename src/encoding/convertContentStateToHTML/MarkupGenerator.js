@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/no-types-missing-file-annotation */
+
 import { ContentState, ContentBlock } from 'draft-js';
 import Entity from 'draft-js/lib/DraftEntity';
 import getEntityRanges, { CharacterMetaList } from 'draft-js-utils/lib/getEntityRanges';

@@ -1,3 +1,5 @@
+/* eslint-disable flowtype/no-types-missing-file-annotation */
+
 import Entity from 'draft-js/lib/DraftEntity';
 import { CR } from './constants';
 import { BLOCK_TYPES, ENTITY_TYPES } from '../../constants';
