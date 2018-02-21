@@ -1,3 +1,5 @@
+// @flow
+
 import { DOWNLOAD_LINK } from '../../constants';
 import createFindEntitiesBy from '../../utils/createFindEntitiesBy';
 

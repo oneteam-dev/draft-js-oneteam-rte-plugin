@@ -1,8 +1,8 @@
 import { EntityInstance } from 'draft-js';
 import { ENTITY_TYPES } from '../../../constants';
 
-type StringMap = {[key: string]: ?string};
-type AttrMap = {[key: string]: StringMap};
+type StringMap = { [key: string]: ?string };
+type AttrMap = { [key: string]: StringMap };
 
 // Map entity data to element attributes.
 export const ENTITY_ATTR_MAP: AttrMap = {
@@ -37,7 +37,9 @@ const dataToAttr = (entityType: string, entity: EntityInstance): StringMap => {
     const dataValue = data[dataKey];
     if (attrMap.hasOwnProperty(dataKey)) {
       const attrKey = attrMap[dataKey];
-      attrs[attrKey] = dataValue;
+      if (attrKey) {
+        attrs[attrKey] = dataValue;
+      }
     }
   }
   return attrs;
