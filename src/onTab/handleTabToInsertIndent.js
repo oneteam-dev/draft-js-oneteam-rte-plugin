@@ -1,6 +1,10 @@
+// @flow
+
 import insertIndent from '../modifiers/insertIndent';
 
-const handleTabToInsertIndent = (e, { getEditorState, setEditorState }): boolean => {
+import type { PluginFunctions } from '../types/PluginFunctions';
+
+const handleTabToInsertIndent = (e: SyntheticEvent<*>, { getEditorState, setEditorState }: PluginFunctions): boolean => {
   const editorState = getEditorState();
 
   const newEditorState = insertIndent(editorState);

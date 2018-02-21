@@ -1,4 +1,7 @@
+// @flow
+
 import { ContentBlock, EntityInstance } from 'draft-js';
+import { OrderedSet } from 'immutable';
 
 export type BlockRenderer = (block: ContentBlock) => ?string;
 export type BlockRendererMap = {[blockType: string]: BlockRenderer};

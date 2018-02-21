@@ -1,3 +1,5 @@
+// @flow
+
 export const BREAK = '<br/>';
 
 const encodeContent = (text: string): string => (

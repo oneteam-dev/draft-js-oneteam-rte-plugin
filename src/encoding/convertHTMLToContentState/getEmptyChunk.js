@@ -1,3 +1,5 @@
+// @flow
+
 import type { Chunk } from './types';
 
 const getEmptyChunk = (): Chunk => ({

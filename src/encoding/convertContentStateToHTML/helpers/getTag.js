@@ -1,3 +1,5 @@
+// @flow
+
 import { BLOCK_TYPES } from '../../../constants';
 
 // The reason this returns an array is because a single block might get wrapped

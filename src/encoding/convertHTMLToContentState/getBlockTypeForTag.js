@@ -1,3 +1,5 @@
+// @flow
+
 import type { DraftBlockType } from 'draft-js/lib/DraftBlockType';
 
 import { BLOCK_TYPES, OLD_BLOCK_TYPES } from '../../constants';
@@ -5,7 +7,7 @@ import { BLOCK_TYPES, OLD_BLOCK_TYPES } from '../../constants';
 const getBlockTypeForTag = (
   tagName: string,
   lastList: ?string,
-  element: ?Element
+  element: ?HTMLElement
 ): DraftBlockType => {
   switch (tagName) {
     case 'h1':

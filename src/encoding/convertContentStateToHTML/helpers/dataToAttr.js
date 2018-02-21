@@ -1,3 +1,5 @@
+// @flow
+
 import { EntityInstance } from 'draft-js';
 import { ENTITY_TYPES } from '../../../constants';
 

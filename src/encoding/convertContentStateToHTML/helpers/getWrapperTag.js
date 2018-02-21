@@ -1,3 +1,5 @@
+// @flow
+
 import { BLOCK_TYPES } from '../../../constants';
 
 const getWrapperTag = (blockType: string): ?string => {

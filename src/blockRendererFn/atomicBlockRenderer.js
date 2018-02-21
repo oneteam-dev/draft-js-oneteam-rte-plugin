@@ -1,3 +1,5 @@
+// @flow
+
 import { Entity, ContentBlock } from 'draft-js';
 import { mergeEntityData } from 'draft-js-modifiers';
 import Image from '../components/Image';

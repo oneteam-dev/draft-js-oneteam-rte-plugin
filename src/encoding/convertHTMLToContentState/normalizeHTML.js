@@ -1,3 +1,5 @@
+// @flow
+
 import { SPACE, REGEX_CR, REGEX_NBSP, REGEX_CARRIAGE, REGEX_ZWS } from './constants';
 
 const normalizeHTML = (html: string): string => (

@@ -1,3 +1,5 @@
+// @flow
+
 import { RichUtils } from 'draft-js';
 import handleTabToInsertIndent from './handleTabToInsertIndent';
 
