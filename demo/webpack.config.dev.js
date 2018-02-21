@@ -18,10 +18,7 @@ module.exports = Object.assign(webpackBaseConfig, {
 
   entry: {
     app: [
-      'webpack/hot/dev-server',
-      'webpack-hot-middleware/client',
       'babel-polyfill',
-      'react-hot-loader/patch',
       path.join(__dirname, 'client', 'index.js'),
     ],
   },
@@ -44,6 +41,7 @@ module.exports = Object.assign(webpackBaseConfig, {
 
   plugins: [
     new ExtractTextPlugin({ filename: 'css/bundle.css', disable: true }),
+    new webpack.NamedModulesPlugin(),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],
