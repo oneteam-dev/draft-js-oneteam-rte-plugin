@@ -17,5 +17,9 @@ export type Config = {
   onReturnWithCommand?: ?(event: SyntheticKeyboardEvent<*>) => void,
   onPastedFiles?: ?(files: FileList) => void,
   atomicBlockRenderMap: AtomicBlockRenderMap,
-  disableWebCardCreation: ?boolean
+  disableWebCardCreation: ?boolean,
+  onCompleteFileUpload?: ?(data: Object, block: ContentBlock) => void,
+  Image?: React$Element<*>,
+  DownloadLink?: React$Element<*>,
+  IFrame?: React$Element<*>,
 }
