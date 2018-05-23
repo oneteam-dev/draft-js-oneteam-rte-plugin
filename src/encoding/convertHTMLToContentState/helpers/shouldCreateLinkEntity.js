@@ -11,11 +11,11 @@ const hasValidLinkText = (link: Element): boolean => {
   return protocol === 'http:' || protocol === 'https:';
 };
 
-const isTextAndHrefSameValue = (element: Element): boolean => (
+const isTextAndHrefSameValue = (element: HTMLElement): boolean => (
   element.getAttribute('href') === element.textContent
 );
 
-const shouldCreateLinkEntity = (tagName: string, element: Element): boolean => (
+const shouldCreateLinkEntity = (tagName: string, element: HTMLAnchorElement): boolean => (
   tagName === 'a' && !!element.href && hasValidLinkText(element) && !isTextAndHrefSameValue(element)
 );
 
