@@ -13,13 +13,13 @@ renderer.listitem = (text) => {
 
 renderer.code = (code, language) => {
   const escapedCode = he.escape(code);
-  return `<pre${language ? ` data-language="${language}"` : ''}>${escapedCode}</pre>`;
+  return `<pre${language ? ` data-language="${language}"` : ''}>${escapedCode}</pre>\n`;
 };
 
 renderer.paragraph = (text) => `<div>${text}</div>\n`;
 
 renderer.blockquote = (text) => {
-  return `<blockquote>${text.replace(/\n$/, '').split('\n').join('<br />')}</blockquote>`;
+  return `<blockquote>${text.replace(/\n$/, '').split('\n').join('<br />')}</blockquote>\n`;
 };
 
 marked.setOptions({
