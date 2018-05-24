@@ -2322,16 +2322,16 @@ dot-prop@^4.1.0:
   dependencies:
     is-obj "^1.0.0"
 
-draft-js-checkable-list-item@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-3.0.1.tgz#040beb335f2a83c0d1b9a33236cf6950f48490cd"
+draft-js-checkable-list-item@^3.0.3:
+  version "3.0.3"
+  resolved "https://registry.yarnpkg.com/draft-js-checkable-list-item/-/draft-js-checkable-list-item-3.0.3.tgz#3c4aaaf1ad6281a49e45e8085fdbe912d43f2aca"
   dependencies:
-    draft-js-modifiers "~0.2.1"
+    draft-js-modifiers "~0.2.2"
     immutable "~3.7.4"
 
-draft-js-modifiers@^0.2.1, draft-js-modifiers@~0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/draft-js-modifiers/-/draft-js-modifiers-0.2.1.tgz#18f48e8ad59c0ae66b14847db42e5d595e5c038e"
+draft-js-modifiers@^0.2.2, draft-js-modifiers@~0.2.2:
+  version "0.2.2"
+  resolved "https://registry.yarnpkg.com/draft-js-modifiers/-/draft-js-modifiers-0.2.2.tgz#ff715450a04aea86b84993b0e51eea7c25a2591d"
   dependencies:
     draft-js "~0.10.5"
     immutable "~3.7.4"
@@ -3662,9 +3662,9 @@ invariant@^2.2.0, invariant@^2.2.2:
   dependencies:
     loose-envify "^1.0.0"
 
-invariant@^2.2.3:
-  version "2.2.3"
-  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.3.tgz#1a827dfde7dcbd7c323f0ca826be8fa7c5e9d688"
+invariant@^2.2.4:
+  version "2.2.4"
+  resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   dependencies:
     loose-envify "^1.0.0"
 
@@ -4319,10 +4319,6 @@ lodash@^4.17.10:
   version "4.17.10"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.10.tgz#1b7793cf7259ea38fb3661d4d38b3260af8ae4e7"
 
-lodash@^4.17.5:
-  version "4.17.5"
-  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.5.tgz#99a92d65c0272debe8c96b6057bc8fbfa3bed511"
-
 log-driver@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/log-driver/-/log-driver-1.2.5.tgz#7ae4ec257302fd790d557cb10c97100d857b0056"
@@ -4403,9 +4399,9 @@ map-visit@^1.0.0:
   dependencies:
     object-visit "^1.0.0"
 
-marked@~0.3.16:
-  version "0.3.16"
-  resolved "https://registry.yarnpkg.com/marked/-/marked-0.3.16.tgz#2f188b7dfcfa6540fe9940adaf0f3b791c9a5cba"
+marked@~0.4.0:
+  version "0.4.0"
+  resolved "https://registry.yarnpkg.com/marked/-/marked-0.4.0.tgz#9ad2c2a7a1791f10a852e0112f77b571dce10c66"
 
 math-expression-evaluator@^1.2.14:
   version "1.2.17"
