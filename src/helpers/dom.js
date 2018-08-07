@@ -4,6 +4,7 @@ import camelCase from 'lodash/camelCase';
 import includes from 'lodash/includes';
 import findKey from 'lodash/findKey';
 import kebabCase from 'lodash/kebabCase';
+import reactHtmlAttributeNames from './reactHtmlAttributeNames';
 
 export const extractIFrameNode = (html: string): ?Element => {
   const el = document.createElement('div');
@@ -68,7 +69,11 @@ const attrNameMap = {
 export const attributesToObject = (element: Element): Object => (
   [].reduce.call(element.attributes, (ret, { nodeName, nodeValue }) => {
     const name = attrNameMap.hasOwnProperty(nodeName) ? attrNameMap[nodeName] : camelCase(nodeName);
-    ret[name] = nodeValue === '' ? true : nodeValue; // eslint-disable-line no-param-reassign
+    /* eslint-disable no-param-reassign, no-nested-ternary */
+    ret[name] = reactHtmlAttributeNames.indexOf(name) !== -1
+      ? (nodeValue === '' ? true : nodeValue)
+      : 'true';
+    /* eslint-enable */
     return ret;
   }, {})
 );
