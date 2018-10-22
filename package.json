@@ -96,6 +96,7 @@
     "postcss-loader": "^2.1.5",
     "pretty": "^2.0.0",
     "prop-types": "^15.6.1",
+    "proxyquire": "^2.1.0",
     "raf": "^3.4.0",
     "react": "^16.3.2",
     "react-addons-pure-render-mixin": "^15.6.2",

@@ -5,7 +5,7 @@ export {
   mergeBlockDataByKey as mergeBlockData,
   mergeEntityData,
   removeBlockStyle,
-  toggleEntity
+  toggleEntity,
 } from 'draft-js-modifiers';
 
 export { default as insertIFrameAtomicBlock } from './insertIFrameAtomicBlock';
@@ -19,3 +19,4 @@ export { default as splitBlockInContentStateIfCursorAtStart } from './splitBlock
 export { default as toggleBlockType } from './toggleBlockType';
 export { default as toggleInlineStyle } from './toggleInlineStyle';
 export { default as toggleLink } from './toggleLink';
+export { default as insertFilePlaceholders } from './insertFilePlaceholders';
