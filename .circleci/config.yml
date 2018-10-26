@@ -5,13 +5,10 @@ referecnes:
     working_directory: ~/oneteam-dev/draft-js-oneteam-rte-plugin
     environment:
       TZ: '/usr/share/zoneinfo/UTC'
-  restore_git_cache: &restore_git_cache
-    keys:
-      - draft-js-oneteam-rte-plugin-git-v1-{{ .Branch }}-
-  save_git_cache: &save_git_cache
-    key: draft-js-oneteam-rte-plugin-git-v1-{{ .Branch }}-
-    paths:
-      - ~/.gitconfig
+  configure_git: &configure_git
+    command: |
+      git config --global user.name 'Circle CI'
+      git config --global user.email 'a+circleci@ngs.io'
   restore_yarn_cache: &restore_yarn_cache
     keys:
       - draft-js-oneteam-rte-plugin-yarn-v1-{{ .Branch }}-{{ checksum "yarn.lock" }}
@@ -24,66 +21,61 @@ referecnes:
 
 version: 2
 jobs:
-  build:
-    <<: *defaults
-    steps:
-      - checkout
-      - restore_cache: *restore_git_cache
-      - run:
-          name: Setting git config
-          command: |
-            git config --global user.name 'Circle CI'
-            git config --global user.email 'a+circleci@ngs.io'
-      - save_cache: *save_git_cache
-      - restore_cache: *restore_yarn_cache
-      - run: yarn
-      - save_cache: *save_yarn_cache
-      - store_artifacts:
-          path: npm-debug.log
   test:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache: *restore_git_cache
       - restore_cache: *restore_yarn_cache
+      - run: yarn
+      - save_cache: *save_yarn_cache
       - run: npm test
       - run: npm run eslint -- --max-warnings 0
       - run: npm run flow
       - run: cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
       - run: cp -R coverage $CIRCLE_ARTIFACTS/
       - run: mkdir -p $CIRCLE_TEST_REPORTS/nyc && cp test-results.xml $CIRCLE_TEST_REPORTS/nyc
-      - store_artifacts:
-          path: npm-debug.log
+
   deploy:
     <<: *defaults
     steps:
       - checkout
-      - restore_cache: *restore_git_cache
       - restore_cache: *restore_yarn_cache
+      - run: *configure_git
       - run: npm run build:demo
       - run: npm run deploy:demo
-      - store_artifacts:
-          path: npm-debug.log
+
+  publish:
+    <<: *defaults
+    steps:
+      - checkout
+      - restore_cache: *restore_yarn_cache
+      - run: *configure_git
+      - run:
+          name: Authenticate with registry
+          command: echo "//registry.npmjs.org/:_authToken=${NPM_AUTH_TOKEN}" >> ~/.npmrc
+      - run: npm run build
+      - run:
+          name: Publish package to npm and tagging by Git
+          command: /bin/bash .circleci/publish-and-tagging.sh
 
 workflows:
   version: 2
-  build-test-and-deploy:
+  test-deploy-publish-and-tagging:
     jobs:
-      - build:
-          filters:
-            branches:
-              ignore:
-                - gh-pages
       - test:
           filters:
             branches:
               ignore:
                 - gh-pages
-          requires:
-            - build
       - deploy:
           filters:
             branches:
               only: /master|deploy-.+/
+          requires:
+            - test
+      - publish-and-tagging:
+          filters:
+            branches:
+              only: master
           requires:
             - test
