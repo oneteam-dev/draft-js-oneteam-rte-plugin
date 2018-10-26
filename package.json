@@ -35,7 +35,7 @@
     "type": "git",
     "url": "git+https://github.com/oneteam-dev/draft-js-oneteam-rte-plugin.git"
   },
-  "author": "Atsushi Nagase",
+  "author": "Oneteam Inc.",
   "contributors": [
     "Atsushi Nagase <a@ngs.io>",
     "Shingo Sato <shinsugar@gmail.com>"
