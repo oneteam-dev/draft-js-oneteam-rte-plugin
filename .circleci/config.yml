@@ -73,7 +73,7 @@ workflows:
               only: /master|deploy-.+/
           requires:
             - test
-      - publish-and-tagging:
+      - publish:
           filters:
             branches:
               only: master
